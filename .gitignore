@@ -1,3 +1,5 @@
 *.meta
 Library/
 Temp/
+Assets/Normal/Realtime/Native/Plugins/iOS/RealtimeClient.a
+Assets/Normal/Realtime/Native/Plugins/Android/arm64/libRealtimeClient.so
