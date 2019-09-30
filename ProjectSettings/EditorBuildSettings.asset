@@ -5,10 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/HiFi/Scenes/Setup.unity
-    guid: b78c987f5875d374b813cc9019c0a778
+    path: Assets/HiFi/Scenes/TestingNetworkVR_2.unity
+    guid: 8b3befe89c9504249a78dd8b232f0d6a
   m_configObjects: {}

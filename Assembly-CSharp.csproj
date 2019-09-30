@@ -62,23 +62,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_ControllerOffsets.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_InputProcessor.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_NodeTracker.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_Platform.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_PlatformInitializer.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_PresetAxisInput.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Core\HiFi_PresetButtonInput.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Tools\AlignAttachEditRun.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Tools\AlignPointHelper.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Tools\ResetOnPlay.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Tools\VirtualParent.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\UI\HiFi_TextLineAdderScroller.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Utility\HiFi_Extensions.cs" />
-    <Compile Include="Assets\HiFi\_Platform\Scripts\Utility\HiFi_Utilities.cs" />
-    <Compile Include="Assets\HiFi\Scripts\AvatarAwake.cs" />
-    <Compile Include="Assets\HiFi\Scripts\PlayerMover.cs" />
-    <Compile Include="Assets\HiFi\Scripts\TransformFollow.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_ControllerOffsets.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_InputProcessor.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_NodeTracker.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_Platform.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_PlatformInitializer.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_PresetAxisInput.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_PresetButtonInput.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Tools\AlignAttachEditRun.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Tools\AlignPointHelper.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Tools\ResetOnPlay.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Tools\VirtualParent.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\UI\HiFi_TextLineAdderScroller.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Extensions.cs" />
+    <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Utilities.cs" />
+    <Compile Include="Assets\HiFi\Scripts\AvatarEnabled.cs" />
+    <Compile Include="Assets\HiFi\Scripts\GameControl.cs" />
+    <Compile Include="Assets\HiFi\Scripts\TankEnabled.cs" />
+    <Compile Include="Assets\HiFi\Scripts\TankMover.cs" />
+    <Compile Include="Assets\HiFi\Scripts\TankPlayerManager.cs" />
     <Compile Include="Assets\Normal\Examples\Blank Scene Template\Scripts\OculusSetFloorTrackingOriginWithoutPlugin.cs" />
     <Compile Include="Assets\Normal\Examples\Cube Player\Scripts\CubePlayer.cs" />
     <Compile Include="Assets\Normal\Examples\Cube Player\Scripts\CubePlayerManager.cs" />
