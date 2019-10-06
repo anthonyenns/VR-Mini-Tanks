@@ -1,4 +1,5 @@
 *.meta
+.vs/
 Library/
 Temp/
 Assets/Normal/Realtime/Native/Plugins/iOS/RealtimeClient.a
