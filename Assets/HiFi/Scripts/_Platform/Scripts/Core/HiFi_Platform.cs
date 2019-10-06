@@ -96,23 +96,23 @@ namespace HiFi
                 {
                     /// Buttons
                     if (button == Button.trigger)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[14];
-                    if (button == Button.grip)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[4];
-                    if (button == Button.buttonOne)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[2];
-                    if (button == Button.buttonTwo)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[3];
-                    if (button == Button.axis2DPress)
                         pressed = HiFi_InputProcessor.instance.IsPressed[9];
+                    if (button == Button.grip)
+                        pressed = HiFi_InputProcessor.instance.IsPressed[11];
+                    if (button == Button.buttonOne)
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[0];
+                    if (button == Button.buttonTwo)
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[3];
+                    if (button == Button.axis2DPress)
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[8];
                     if (button == Button.axis2DTouch)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[16];
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[16];
 
                     /// Axis to button
                     if (button == Button.axis2DUp)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[2];
-                    if (button == Button.axis2DDown)
                         pressed = HiFi_InputProcessor.instance.IsPressedNeg[2];
+                    if (button == Button.axis2DDown)
+                        pressed = HiFi_InputProcessor.instance.IsPressed[2];
                     if (button == Button.axis2DLeft)
                         pressed = HiFi_InputProcessor.instance.IsPressedNeg[1];
                     if (button == Button.axis2DRight)
@@ -129,23 +129,23 @@ namespace HiFi
                 {
                     /// Button
                     if (button == Button.trigger)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[15];
+                        pressed = HiFi_InputProcessor.instance.IsPressed[10];
                     if (button == Button.grip)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[5];
+                        pressed = HiFi_InputProcessor.instance.IsPressed[12];
                     if (button == Button.buttonOne)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[0];
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[2];
                     if (button == Button.buttonTwo)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[1];
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[1];
                     if (button == Button.axis2DPress)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[9];
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[9];
                     if (button == Button.axis2DTouch)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[17];
+                        pressed = HiFi_InputProcessor.instance.IsPressedButton[17];
 
                     /// Axis to button
                     if (button == Button.axis2DUp)
-                        pressed = HiFi_InputProcessor.instance.IsPressed[5];
-                    if (button == Button.axis2DDown)
                         pressed = HiFi_InputProcessor.instance.IsPressedNeg[5];
+                    if (button == Button.axis2DDown)
+                        pressed = HiFi_InputProcessor.instance.IsPressed[5];
                     if (button == Button.axis2DLeft)
                         pressed = HiFi_InputProcessor.instance.IsPressedNeg[4];
                     if (button == Button.axis2DRight)
@@ -176,23 +176,23 @@ namespace HiFi
                 {
                     /// Buttons
                     if (button == Button.trigger)
-                        released = HiFi_InputProcessor.instance.IsReleased[14];
-                    if (button == Button.grip)
-                        released = HiFi_InputProcessor.instance.IsReleased[4];
-                    if (button == Button.buttonOne)
-                        released = HiFi_InputProcessor.instance.IsReleased[2];
-                    if (button == Button.buttonTwo)
-                        released = HiFi_InputProcessor.instance.IsReleased[3];
-                    if (button == Button.axis2DPress)
                         released = HiFi_InputProcessor.instance.IsReleased[9];
+                    if (button == Button.grip)
+                        released = HiFi_InputProcessor.instance.IsReleased[11];
+                    if (button == Button.buttonOne)
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[0];
+                    if (button == Button.buttonTwo)
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[3];
+                    if (button == Button.axis2DPress)
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[8];
                     if (button == Button.axis2DTouch)
-                        released = HiFi_InputProcessor.instance.IsReleased[16];
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[16];
 
                     /// Axis to button
                     if (button == Button.axis2DUp)
-                        released = HiFi_InputProcessor.instance.IsReleased[2];
-                    if (button == Button.axis2DDown)
                         released = HiFi_InputProcessor.instance.IsReleasedNeg[2];
+                    if (button == Button.axis2DDown)
+                        released = HiFi_InputProcessor.instance.IsReleased[2];
                     if (button == Button.axis2DLeft)
                         released = HiFi_InputProcessor.instance.IsReleasedNeg[1];
                     if (button == Button.axis2DRight)
@@ -209,23 +209,23 @@ namespace HiFi
                 {
                     /// Button
                     if (button == Button.trigger)
-                        released = HiFi_InputProcessor.instance.IsReleased[15];
+                        released = HiFi_InputProcessor.instance.IsReleased[10];
                     if (button == Button.grip)
-                        released = HiFi_InputProcessor.instance.IsReleased[5];
+                        released = HiFi_InputProcessor.instance.IsReleased[12];
                     if (button == Button.buttonOne)
-                        released = HiFi_InputProcessor.instance.IsReleased[0];
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[2];
                     if (button == Button.buttonTwo)
-                        released = HiFi_InputProcessor.instance.IsReleased[1];
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[1];
                     if (button == Button.axis2DPress)
-                        released = HiFi_InputProcessor.instance.IsReleased[9];
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[9];
                     if (button == Button.axis2DTouch)
-                        released = HiFi_InputProcessor.instance.IsReleased[17];
+                        released = HiFi_InputProcessor.instance.IsReleasedButton[17];
 
                     /// Axis to button
                     if (button == Button.axis2DUp)
-                        released = HiFi_InputProcessor.instance.IsReleased[5];
-                    if (button == Button.axis2DDown)
                         released = HiFi_InputProcessor.instance.IsReleasedNeg[5];
+                    if (button == Button.axis2DDown)
+                        released = HiFi_InputProcessor.instance.IsReleased[5];
                     if (button == Button.axis2DLeft)
                         released = HiFi_InputProcessor.instance.IsReleasedNeg[4];
                     if (button == Button.axis2DRight)
@@ -255,23 +255,23 @@ namespace HiFi
                 {
                     /// Buttons
                     if (button == Button.trigger)
-                        hold = !HiFi_InputProcessor.instance.IsReset[14];
-                    if (button == Button.grip)
-                        hold = !HiFi_InputProcessor.instance.IsReset[4];
-                    if (button == Button.buttonOne)
-                        hold = !HiFi_InputProcessor.instance.IsReset[2];
-                    if (button == Button.buttonTwo)
-                        hold = !HiFi_InputProcessor.instance.IsReset[3];
-                    if (button == Button.axis2DPress)
                         hold = !HiFi_InputProcessor.instance.IsReset[9];
+                    if (button == Button.grip)
+                        hold = !HiFi_InputProcessor.instance.IsReset[11];
+                    if (button == Button.buttonOne)
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[0];
+                    if (button == Button.buttonTwo)
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[3];
+                    if (button == Button.axis2DPress)
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[8];
                     if (button == Button.axis2DTouch)
-                        hold = !HiFi_InputProcessor.instance.IsReset[16];
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[16];
 
                     /// Axis to button
                     if (button == Button.axis2DUp)
-                        hold = !HiFi_InputProcessor.instance.IsReset[2];
-                    if (button == Button.axis2DDown)
                         hold = !HiFi_InputProcessor.instance.IsResetNeg[2];
+                    if (button == Button.axis2DDown)
+                        hold = !HiFi_InputProcessor.instance.IsReset[2];
                     if (button == Button.axis2DLeft)
                         hold = !HiFi_InputProcessor.instance.IsResetNeg[1];
                     if (button == Button.axis2DRight)
@@ -288,22 +288,22 @@ namespace HiFi
                 {
                     /// Button
                     if (button == Button.trigger)
-                        hold = !HiFi_InputProcessor.instance.IsReset[15];
+                        hold = !HiFi_InputProcessor.instance.IsReset[10];
                     if (button == Button.grip)
-                        hold = !HiFi_InputProcessor.instance.IsReset[5];
+                        hold = !HiFi_InputProcessor.instance.IsReset[12];
                     if (button == Button.buttonOne)
-                        hold = !HiFi_InputProcessor.instance.IsReset[0];
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[2];
                     if (button == Button.buttonTwo)
-                        hold = !HiFi_InputProcessor.instance.IsReset[1];
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[1];
                     if (button == Button.axis2DPress)
-                        hold = !HiFi_InputProcessor.instance.IsReset[9];
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[9];
                     if (button == Button.axis2DTouch)
-                        hold = !HiFi_InputProcessor.instance.IsReset[17];
+                        hold = !HiFi_InputProcessor.instance.IsResetButton[17];
 
                     if (button == Button.axis2DUp)
-                        hold = !HiFi_InputProcessor.instance.IsReset[5];
-                    if (button == Button.axis2DDown)
                         hold = !HiFi_InputProcessor.instance.IsResetNeg[5];
+                    if (button == Button.axis2DDown)
+                        hold = !HiFi_InputProcessor.instance.IsReset[5];
                     if (button == Button.axis2DLeft)
                         hold = !HiFi_InputProcessor.instance.IsResetNeg[4];
                     if (button == Button.axis2DRight)

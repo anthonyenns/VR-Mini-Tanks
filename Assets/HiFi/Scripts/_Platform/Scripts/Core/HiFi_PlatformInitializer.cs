@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using Normal.Realtime;
 
 /// <summary>
 /// This class obtains XR device information and enables XR, gets/sets references to gameobjects, sets up offsets
@@ -15,10 +14,9 @@ namespace HiFi
     {
         public class HiFi_PlatformInitializer : MonoBehaviour
         {
-            public Realtime realtime;
-
             public bool XREnabled;
             public TrackingSpaceType targetTrackingSpace;
+            public HiFi_PresetButtonInput recenterButton;
 
             [Header("Hand Controllers Setup:")]
             public HiFi_ControllerOffsets setupOculusTouch;
@@ -64,25 +62,8 @@ namespace HiFi
                     /// Get XR System info and set tracking space
                     SetupXREnvironment();
 
-                    /// Set controller offsets when avatar comes online
-                    AvatarEnabled.OnAvatarEnabled += SetControllers;
                 }
             }
-
-            /// ====================================================================================
-            /// OnDisable
-            /// ====================================================================================
-            private void OnDisable()
-            {
-                if(XREnabled)
-                    AvatarEnabled.OnAvatarEnabled -= SetControllers;
-            }
-
-            /// ====================================================================================
-            /// Update
-            /// ====================================================================================
-            //private void Update()
-            //{}
 
             /// ====================================================================================
             /// Set Environment Parameters
@@ -141,12 +122,8 @@ namespace HiFi
             /// Assigns user set offsets to tracked hand origin/aim helper objects
             /// </summary>
             /// <param name="setup"></param>
-            void SetControllers(GameObject avatar, Transform left, Transform right)
+            void SetControllers(Transform left, Transform right)
             {
-                /// Make sure this is our avatar
-                if (realtime.clientID != avatar.GetComponent<RealtimeView>().ownerID)
-                    return;
-
                 string appliedOffsets = "None";
 
                 /// Oculus Family
@@ -207,8 +184,6 @@ namespace HiFi
                 right.ResetLocalIdentity();
                 right.localPosition = detectedOffsets.rightOrigin;
                 right.localEulerAngles = detectedOffsets.rightAimDirection;
-
-                OnDisable();
             }
 
             /// ====================================================================================

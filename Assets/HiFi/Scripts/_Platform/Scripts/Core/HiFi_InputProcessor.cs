@@ -26,16 +26,16 @@ namespace HiFi
             public float[] Value = new float[29];
             public bool[] Button = new bool[19];
 
-            public bool[] IsPressed { get; private set; } = new bool[29];
-            public bool[] IsPressedNeg { get; private set; } = new bool[29];
-            public bool[] IsReleased { get; private set; } = new bool[29];
-            public bool[] IsReleasedNeg { get; private set; } = new bool[29];
-            public bool[] IsReset { get; private set; } = new bool[29];
-            public bool[] IsResetNeg { get; private set; } = new bool[29];
+            public bool[] IsPressed = new bool[29];
+            public bool[] IsPressedNeg = new bool[29];
+            public bool[] IsReleased = new bool[29];
+            public bool[] IsReleasedNeg = new bool[29];
+            public bool[] IsReset = new bool[29];
+            public bool[] IsResetNeg = new bool[29];
 
-            public bool[] IsPressedButton { get; private set; } = new bool[19];
-            public bool[] IsReleasedButton { get; private set; } = new bool[19];
-            public bool[] IsResetButton { get; private set; } = new bool[19];
+            public bool[] IsPressedButton = new bool[19];
+            public bool[] IsReleasedButton = new bool[19];
+            public bool[] IsResetButton = new bool[19];
 
             private bool invertFlag, bInput;
             private Vector2 vInput, joystickL, joystickR;

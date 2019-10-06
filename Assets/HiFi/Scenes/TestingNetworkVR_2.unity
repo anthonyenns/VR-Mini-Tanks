@@ -120,37 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &55077744
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 55077745}
-  m_Layer: 0
-  m_Name: Remote_Shared
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &55077745
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55077744}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4520454929850609}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432010686
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,10 +150,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   realtime: {fileID: 114501696257053271}
-  playerTank: {fileID: 0}
-  playerAvatar: {fileID: 0}
-  playerIsBuilt: 0
+  clientID: -1
+  connectedToRoom: 0
+  localPlayer: {fileID: 0}
   otherPlayers: []
+  recenterButton:
+    method: 1
+    hand: 3
+    button: 11
 --- !u!4 &432010688
 Transform:
   m_ObjectHideFlags: 0
@@ -197,6 +170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4112774974896298720}
+  - {fileID: 4520454929850609}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -211,8 +185,9 @@ GameObject:
   - component: {fileID: 779484858}
   - component: {fileID: 779484857}
   - component: {fileID: 779484856}
+  - component: {fileID: 779484859}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Dev Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +200,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 779484855}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &779484857
 Camera:
   m_ObjectHideFlags: 0
@@ -283,6 +258,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &779484859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779484855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b4af1d2b4c7ec41a951f2b68addac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1148243253
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +282,6 @@ GameObject:
   - component: {fileID: 1148243256}
   - component: {fileID: 1148243255}
   - component: {fileID: 1148243254}
-  - component: {fileID: 1148243258}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -373,52 +359,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 20, y: 0.1, z: 20}
   m_Children: []
-  m_Father: {fileID: 1308642338}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1148243258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148243253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4034fd69b84065489712b2971c880ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1308642337
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1308642338}
-  m_Layer: 0
-  m_Name: Local_Only
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1308642338
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308642337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1927974868}
-  - {fileID: 1148243257}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1927974866
 GameObject:
@@ -508,8 +450,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1308642338}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1572161793349617
 GameObject:
@@ -521,10 +463,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4520454929850609}
   - component: {fileID: 114501696257053271}
-  - component: {fileID: 1572161793349619}
   - component: {fileID: 1572161793349618}
+  - component: {fileID: 1572161793349619}
   m_Layer: 0
-  m_Name: Realtime + VR Player
+  m_Name: Realtime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -539,9 +481,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4034fd69b84065489712b2971c880ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 81de3f6c7d8df5b4eba5d811578dcc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceName: TestPlayer
 --- !u!114 &1572161793349619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b6ae53fe1e66d429cc41bbf5b29cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localAvatarPrefab: {fileID: 1805327599724301319, guid: 87f76f97edf12cf4280e323adc2cefe5,
+  _localAvatarPrefab: {fileID: 1435502846325602, guid: 75a99b7500b89564888ab4db05f9daf6,
     type: 3}
   _localPlayer:
     root: {fileID: 0}
@@ -572,8 +515,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 55077745}
-  m_RootOrder: 0
+  m_Father: {fileID: 432010688}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114501696257053271
 MonoBehaviour:
@@ -603,9 +546,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31469a220d3d434b8d77c31ebfbf595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realtime: {fileID: 114501696257053271}
   XREnabled: 1
-  targetTrackingSpace: 1
+  targetTrackingSpace: 0
+  recenterButton:
+    method: 0
+    hand: 0
+    button: 0
   setupOculusTouch:
     leftOrigin: {x: 0, y: 0, z: 0}
     rightOrigin: {x: 0, y: 0, z: 0}
@@ -712,6 +658,15 @@ MonoBehaviour:
   - 0
   - 0
   Button: 00000000000000000000000000000000000000
+  IsPressed: 0000000000000000000000000000000000000000000000000000000000
+  IsPressedNeg: 0000000000000000000000000000000000000000000000000000000000
+  IsReleased: 0000000000000000000000000000000000000000000000000000000000
+  IsReleasedNeg: 0000000000000000000000000000000000000000000000000000000000
+  IsReset: 0000000000000000000000000000000000000000000000000000000000
+  IsResetNeg: 0000000000000000000000000000000000000000000000000000000000
+  IsPressedButton: 00000000000000000000000000000000000000
+  IsReleasedButton: 00000000000000000000000000000000000000
+  IsResetButton: 00000000000000000000000000000000000000
 --- !u!1 &4109267636386779886
 GameObject:
   m_ObjectHideFlags: 0

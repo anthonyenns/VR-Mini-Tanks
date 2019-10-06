@@ -2,84 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
+using HiFi.Platform;
+using UnityEngine.XR;
 
 namespace HiFi
 {
     public class GameControl : MonoBehaviour
     {
-        public Realtime realtime;
-        public int clientID = -1;
-        public bool connectedToRoom;
+        [SerializeField] Realtime realtime;
+        [SerializeField] int clientID = -1;
+        [SerializeField] bool connectedToRoom;
 
-        [SerializeField] GameObject playerTank;
-        [SerializeField] GameObject playerAvatar;
-        [SerializeField] bool playerIsBuilt;
+        [SerializeField] GameObject localPlayer;
         [SerializeField] List<GameObject> otherPlayers = new List<GameObject>();
+
+        public HiFi_PresetButtonInput recenterButton;
 
         private void OnEnable()
         {
-            TankEnabled.OnTankEnabled += SetTankRef;
-            AvatarEnabled.OnAvatarEnabled += SetAvatarRef;
-            realtime.didConnectToRoom += DidConnectToRoom;
+            realtime.didConnectToRoom += ConnectedToRoom;
+            realtime.didDisconnectFromRoom += DisconnectedFromRoom; 
         }
 
         private void OnDisable()
         {
-            TankEnabled.OnTankEnabled -= SetTankRef;
-            AvatarEnabled.OnAvatarEnabled -= SetAvatarRef;
+            realtime.didConnectToRoom -= ConnectedToRoom;
+            realtime.didDisconnectFromRoom -= DisconnectedFromRoom;
         }
 
         void Update()
         {
             if (Input.GetKey("escape"))
             {
-                Application.Quit();
+                ShutdownSequence();
+            }
+            if(HiFi_Platform.instance.Preset(recenterButton))
+            {
+                InputTracking.Recenter();
             }
         }
 
-        private void DidConnectToRoom(Realtime realtime)
+        private void ConnectedToRoom(Realtime realtime)
         {
             clientID = realtime.clientID;
             connectedToRoom = true;
         }
 
-        private void SetTankRef(GameObject tank)
+        private void DisconnectedFromRoom(Realtime realtime)
         {
-            Debug.Log("Received ref to " + tank.name);
-            if (realtime.clientID == tank.GetComponent<RealtimeView>().ownerID)
-            {
-                playerTank = tank;
-                SetAvatarParent();
-            }
-            else
-            {
-                otherPlayers.Add(tank);
-            }
+            clientID = realtime.clientID;
+            connectedToRoom = true;
         }
 
-        private void SetAvatarRef(GameObject avatar, Transform left, Transform right)
+        private void ShutdownSequence()
         {
-            Debug.Log("Received ref to " + avatar.name);
-            if (realtime.clientID == avatar.GetComponent<RealtimeView>().ownerID)
-            {
-                playerAvatar = avatar;
-                SetAvatarParent();
-            }
-        }
-
-        private void SetAvatarParent()
-        {
-            if (playerAvatar != null && playerTank != null && !playerIsBuilt)
-            {
-                playerAvatar.transform.parent = playerTank.transform;
-                playerIsBuilt = true;
-            }
-
-            if (playerIsBuilt)
-            {
-                TankEnabled.OnTankEnabled -= SetTankRef;
-                AvatarEnabled.OnAvatarEnabled -= SetAvatarRef;
-            }
+            Application.Quit();
         }
     }
 }
