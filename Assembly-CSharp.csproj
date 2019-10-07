@@ -76,6 +76,8 @@
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\UI\HiFi_TextLineAdderScroller.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Extensions.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Utilities.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Avatar\AvatarMountTank.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Avatar\AvatarSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\debugger.cs" />
     <Compile Include="Assets\HiFi\Scripts\DisableIfNotLocal.cs" />
     <Compile Include="Assets\HiFi\Scripts\DisableOnPlay.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Assets\HiFi\Scripts\RealtimeSpawner.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankController.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankMover.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Tank\TankSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSync.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSyncModel.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankWheelsMover.cs" />

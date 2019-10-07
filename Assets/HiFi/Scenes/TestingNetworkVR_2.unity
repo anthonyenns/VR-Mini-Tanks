@@ -149,11 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec76e8eafb93c8e4bae040277eded587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  realtimeEnabled: 1
   realtime: {fileID: 114501696257053271}
   clientID: -1
   connectedToRoom: 0
-  localPlayer: {fileID: 0}
-  otherPlayers: []
+  localTank: {fileID: 0}
+  localAvatar: {fileID: 0}
+  networkTanks: []
+  networkAvatars: []
   recenterButton:
     method: 1
     hand: 3
@@ -484,7 +487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81de3f6c7d8df5b4eba5d811578dcc3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceName: TestPlayer
+  resourceName: TestyTank
+  randomPosition: 1
+  randomRadiusHeight: {x: 10, y: 1}
+  randomRotation: 1
 --- !u!114 &1572161793349619
 MonoBehaviour:
   m_ObjectHideFlags: 0
