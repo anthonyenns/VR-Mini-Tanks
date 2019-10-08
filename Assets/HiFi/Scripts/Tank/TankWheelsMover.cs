@@ -36,8 +36,8 @@ namespace HiFi
         private void MoveWheels()
         {
             avg = (controller.rightSpeed + controller.leftSpeed) / 2;
-            leftTrackSpeed = controller.leftSpeed - curve.Evaluate((controller.leftSpeed - controller.rightSpeed) / 2);
-            rightTrackSpeed = controller.rightSpeed - (0.45f * (controller.rightSpeed - controller.leftSpeed));
+            leftTrackSpeed = Mathf.Clamp(controller.leftSpeed, -1, 1);
+            rightTrackSpeed = Mathf.Clamp(controller.rightSpeed, -1, 1);
 
             /// Left wheels rotate
             foreach (GameObject wheelL in LeftWheels)
