@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72a696af81dd44f5b4da092fce2f45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  realtimeEnabled: 1
+  realtimeEnabled: 0
   realtime: {fileID: 114501696257053271}
   clientID: -1
   connectedToRoom: 0

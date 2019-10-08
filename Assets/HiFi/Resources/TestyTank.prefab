@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarSeatPosition: {x: 0, y: 1, z: -0.5}
+  seatPosition2D: {x: 0, y: 1, z: -2}
+  seatRotation2D: {x: 5, y: 0, z: 0}
   cameraNull: {fileID: 3337507688516826163}
   leftSpeedController:
     hand: 1
@@ -231,7 +233,32 @@ MonoBehaviour:
   - {fileID: 4867412073272730160}
   LeftTrack: {fileID: 4867412073272730170}
   RightTrack: {fileID: 4867412073272730168}
-  speedMult: 0.5
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  trackMult: 0.5
+  wheelsMult: 5
 --- !u!114 &7525159167826922529
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,9 +13,12 @@ namespace HiFi
 
         public GameObject LeftTrack;
         public GameObject RightTrack;
+        public AnimationCurve curve;
 
-        float wheelsSpeedLeft, tracksSpeedLeft, wheelsSpeedRight, tracksSpeedRight;
-        public float speedMult = 0.5f;
+        float leftTrackSpeed, rightTrackSpeed;
+        public float trackMult = 0.5f;
+        public float wheelsMult = 5.0f;
+        private float avg;
 
         private void Awake()
         {
@@ -32,22 +35,21 @@ namespace HiFi
 
         private void MoveWheels()
         {
-            wheelsSpeedLeft = controller.leftSpeed * speedMult;
-            tracksSpeedLeft = controller.leftSpeed * speedMult;
-            wheelsSpeedRight = controller.rightSpeed * speedMult;
-            tracksSpeedRight = controller.rightSpeed * speedMult;
+            avg = (controller.rightSpeed + controller.leftSpeed) / 2;
+            leftTrackSpeed = controller.leftSpeed - curve.Evaluate((controller.leftSpeed - controller.rightSpeed) / 2);
+            rightTrackSpeed = controller.rightSpeed - (0.45f * (controller.rightSpeed - controller.leftSpeed));
 
             /// Left wheels rotate
             foreach (GameObject wheelL in LeftWheels)
-                wheelL.transform.Rotate(new Vector3(wheelsSpeedLeft, 0f, 0f));
+                wheelL.transform.Rotate(new Vector3(leftTrackSpeed, 0f, 0f) * wheelsMult);
 
             /// Right wheels rotate
             foreach (GameObject wheelR in RightWheels)
-                wheelR.transform.Rotate(new Vector3(-wheelsSpeedRight, 0f, 0f));
+                wheelR.transform.Rotate(new Vector3(-rightTrackSpeed, 0f, 0f) * wheelsMult);
 
             /// Tracks texture offsets
-            LeftTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * tracksSpeedLeft);
-            RightTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * tracksSpeedRight);
+            LeftTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * leftTrackSpeed * trackMult);
+            RightTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * rightTrackSpeed * trackMult);
         }
     }
 }

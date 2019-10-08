@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
 using HiFi.Platform;
+using UnityEngine.XR;
 
 namespace HiFi
 {
     public class TankController : MonoBehaviour
     {
         public Vector3 avatarSeatPosition;
+        public Vector3 seatPosition2D;
+        public Vector3 seatRotation2D;
         public GameObject cameraNull;
 
         /// Temporary controls
@@ -32,8 +35,17 @@ namespace HiFi
             if (_realtimeView == null)
                 ownedLocally = true;
 
-            cameraNull.transform.localPosition = avatarSeatPosition;
-            cameraNull.transform.localRotation = Quaternion.identity;
+            /// Set camera position
+            if (XRSettings.enabled)
+            {
+                cameraNull.transform.localPosition = avatarSeatPosition;
+                cameraNull.transform.localRotation = Quaternion.identity;
+            }
+            else
+            {
+                cameraNull.transform.localPosition = seatPosition2D;
+                cameraNull.transform.localRotation = Quaternion.Euler(seatRotation2D);
+            }
         }
 
         private void Update()
@@ -59,10 +71,42 @@ namespace HiFi
             }
         }
 
+        /// Temporary input methods
         private void GetUserInput()
         {
-            speedInput.x = HiFi_Platform.instance.Preset(leftSpeedController);
-            speedInput.y = HiFi_Platform.instance.Preset(rightSpeedController);
+            speedInput = Vector2.zero;
+            /// XR ccontroller input
+            if (XRSettings.enabled)
+            {
+                speedInput.x = HiFi_Platform.instance.Preset(leftSpeedController);
+                speedInput.y = HiFi_Platform.instance.Preset(rightSpeedController);
+            }
+
+            /// Keyboard Input
+            if (Input.GetKey(KeyCode.W))
+                speedInput = new Vector2(1.0f, 1.0f);
+
+            if (Input.GetKey(KeyCode.X))
+                speedInput = new Vector2(-1.0f, -1.0f);
+
+            if (Input.GetKey(KeyCode.D))
+                speedInput = new Vector2(1.0f, -1.0f);
+
+            if (Input.GetKey(KeyCode.A))
+                speedInput = new Vector2(-1.0f, 1.0f);
+
+            if (Input.GetKey(KeyCode.Q))
+                speedInput += new Vector2(0.5f, 1.0f);
+
+            if (Input.GetKey(KeyCode.E))
+                speedInput += new Vector2(1.0f, 0.5f);
+
+            if (Input.GetKey(KeyCode.Z))
+                speedInput += new Vector2(-0.5f, -1.0f);
+
+            if (Input.GetKey(KeyCode.C))
+                speedInput += new Vector2(-1.0f, -0.5f);
+
         }
     }
 }
