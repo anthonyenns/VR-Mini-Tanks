@@ -15,24 +15,21 @@ namespace HiFi
         Rigidbody rb;
         Vector3 movement;
 
-        private void Start()
+        private void Awake()
         {
             rb = GetComponentInChildren<Rigidbody>();
+            controller = GetComponent<TankController>();
         }
 
-        private void Update()
+        private void Start()
         {
-            /// If this prefab is not owned by this client, bail.
-            if (!controller.tankIsLocal)
-                return;
-
-            /// Make sure we own the transform so that RealtimeTransform knows to use this client's transform to synchronize remote clients.
-            //_realtimeTransform.RequestOwnership();
+            if (controller._realtimeView != null)
+                controller._realtimeView.RequestOwnership();
         }
 
         private void FixedUpdate()
         {
-            if (rb != null)
+            if (rb != null && controller.ownedLocally)
             {
                 Turn();
                 Move();

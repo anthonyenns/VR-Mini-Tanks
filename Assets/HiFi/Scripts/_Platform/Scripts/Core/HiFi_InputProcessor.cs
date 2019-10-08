@@ -21,7 +21,7 @@ namespace HiFi
             [Range(0f, 1f)] public float deadzone = 0.2f;
 
             public int[] activeButtonIndex = { 0, 1, 2, 3, 8, 9, 16, 17 }; /// Primary, 
-            public int[] activeAxisIndex = { 1,-2,4,-5,9,10,11,12,21,22,23,24,25,26,27,28}; /// Use negative value to invert axis
+            public int[] activeAxisIndex = { 1, -2, 4, -5, 9, 10, 11, 12, 21, 22, 23, 24, 25, 26, 27, 28 }; /// Use negative value to invert axis
 
             public float[] Value = new float[29];
             public bool[] Button = new bool[19];
@@ -47,8 +47,13 @@ namespace HiFi
                 if (instance == null)
                     instance = this;
 
-                left = HiFi_Platform.instance.leftHandDevice;
-                right = HiFi_Platform.instance.rightHandDevice;
+                if (XRSettings.enabled)
+                {
+                    left = HiFi_Platform.instance.leftHandDevice;
+                    right = HiFi_Platform.instance.rightHandDevice;
+                }
+                else
+                    enabled = false;
             }
 
             /// <summary>
@@ -100,7 +105,7 @@ namespace HiFi
                 /// 2D Axis Press
                 Button[8] = HiFi_Platform.instance.leftHandDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bInput) ? bInput : false;
                 Button[9] = HiFi_Platform.instance.rightHandDevice.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out bInput) ? bInput : false;
-                
+
                 /// 2D Axis Touch
                 Button[16] = HiFi_Platform.instance.leftHandDevice.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bInput) ? bInput : false;
                 Button[17] = HiFi_Platform.instance.rightHandDevice.TryGetFeatureValue(CommonUsages.primary2DAxisTouch, out bInput) ? bInput : false;

@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 432010686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec76e8eafb93c8e4bae040277eded587, type: 3}
+  m_Script: {fileID: 11500000, guid: a72a696af81dd44f5b4da092fce2f45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   realtimeEnabled: 1
@@ -158,9 +158,9 @@ MonoBehaviour:
   networkTanks: []
   networkAvatars: []
   recenterButton:
-    method: 1
-    hand: 3
-    button: 11
+    method: 0
+    hand: 0
+    button: 0
 --- !u!4 &432010688
 Transform:
   m_ObjectHideFlags: 0
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 779484855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b4af1d2b4c7ec41a951f2b68addac9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f06c3a23976942409b8877d91f8b6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1148243253
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81de3f6c7d8df5b4eba5d811578dcc3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 86bbb5b90110f499095e7840e894aa9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   resourceName: TestyTank
@@ -500,10 +500,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b6ae53fe1e66d429cc41bbf5b29cb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ba8f3a801545497fb84b237ee018fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localAvatarPrefab: {fileID: 1435502846325602, guid: 75a99b7500b89564888ab4db05f9daf6,
+  _localAvatarPrefab: {fileID: 1435502846325602, guid: 4c68a665116d54b138d95bdd76c876b2,
     type: 3}
   _localPlayer:
     root: {fileID: 0}
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99dcaba2234393f4a829d0fd1fb4a608, type: 3}
+  m_Script: {fileID: 11500000, guid: dc36e26f2282a457da21098124cb9f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _appKey: 6c951fbe-1191-4331-8f4f-f605e9ab6ea6
@@ -549,10 +549,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4109267636386779886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a31469a220d3d434b8d77c31ebfbf595, type: 3}
+  m_Script: {fileID: 11500000, guid: 4282e2285097f483584125ed54c7aff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XREnabled: 1
+  XREnabled: 0
   targetTrackingSpace: 0
   recenterButton:
     method: 0
@@ -579,12 +579,12 @@ MonoBehaviour:
     leftAimDirection: {x: 0, y: 0, z: 0}
     rightAimDirection: {x: 0, y: 0, z: 0}
   setupWMROpenVR:
-    leftOrigin: {x: 0.01, y: 0.01, z: -0.06}
-    rightOrigin: {x: -0.01, y: 0.01, z: -0.06}
-    leftAimDirection: {x: 30, y: 0, z: 0}
-    rightAimDirection: {x: 30, y: 0, z: 0}
+    leftOrigin: {x: 0, y: 0, z: 0}
+    rightOrigin: {x: 0, y: 0, z: 0}
+    leftAimDirection: {x: 0, y: 0, z: 0}
+    rightAimDirection: {x: 0, y: 0, z: 0}
   refreshRate: 3
-  renderScale: 1.5
+  renderScale: 1
   family: none
   model: none
   supportedDevices: []
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4109267636386779886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 481f7e53fc3f34142aa44e6d851cc443, type: 3}
+  m_Script: {fileID: 11500000, guid: 2202bac19258d4035994df6117ae88f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mirrorDebugToUnityConsole: 1
@@ -611,21 +611,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4109267636386779886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5228c71102708634c91cfd37bec3371c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackingOriginMode: 0
-  trackingSpaceType: 0
---- !u!114 &4109267636386779881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109267636386779886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf79fc153bb38984f866ff746413e213, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f7a0375467464d5383d5aebd3450b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pressThreshold: 0.5
@@ -673,6 +659,18 @@ MonoBehaviour:
   IsPressedButton: 00000000000000000000000000000000000000
   IsReleasedButton: 00000000000000000000000000000000000000
   IsResetButton: 00000000000000000000000000000000000000
+--- !u!114 &4109267636386779881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109267636386779886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b82bc4416d694d85af050f075df2fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4109267636386779886
 GameObject:
   m_ObjectHideFlags: 0

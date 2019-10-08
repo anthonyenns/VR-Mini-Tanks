@@ -13,6 +13,7 @@ namespace HiFi
         [SerializeField] Realtime realtime;
         [SerializeField] int clientID = -1;
         [SerializeField] bool connectedToRoom;
+        [SerializeField] GameObject offline;
 
         [SerializeField] GameObject localTank;
         [SerializeField] GameObject localAvatar;
@@ -27,10 +28,17 @@ namespace HiFi
 
         private void OnEnable()
         {
-            /// Realtime Events
-            realtime.didConnectToRoom += ConnectedToRoom;
-            realtime.didDisconnectFromRoom += DisconnectedFromRoom;
-
+            /// Realtime
+            if (realtimeEnabled)
+            {
+                realtime.didConnectToRoom += ConnectedToRoom;
+                realtime.didDisconnectFromRoom += DisconnectedFromRoom;
+            }
+            else /// No networking
+            {
+                realtime.gameObject.SetActive(false);
+                offline.SetActive(true);
+            }
             /// Player Objects Spawn Events
             TankSpawnEvent.TankSpawned += AddTankToList;
             TankSpawnEvent.TankDespawned += RemoveTankFromList;
@@ -41,9 +49,14 @@ namespace HiFi
 
         private void OnDisable()
         {
-            realtime.didConnectToRoom -= ConnectedToRoom;
-            realtime.didDisconnectFromRoom -= DisconnectedFromRoom;
+            /// Realtime
+            if (realtimeEnabled)
+            {
+                realtime.didConnectToRoom -= ConnectedToRoom;
+                realtime.didDisconnectFromRoom -= DisconnectedFromRoom;
+            }
 
+            /// Player Objects Spawn Events
             TankSpawnEvent.TankSpawned -= AddTankToList;
             TankSpawnEvent.TankDespawned -= RemoveTankFromList;
             AvatarSpawnEvent.AvatarSpawned -= AddAvatarToList;
@@ -82,7 +95,7 @@ namespace HiFi
                 clientTankNeedsAvatarID = tank.GetComponent<RealtimeView>().ownerID;
 
                 tank.name = "Client" + clientTankNeedsAvatarID + "_" + tank.name;
-                networkTanks.Add(tank);              
+                networkTanks.Add(tank);
             }
         }
 
@@ -130,7 +143,7 @@ namespace HiFi
 
         private void ParentClientAvatar()
         {
-            foreach(GameObject avatar in networkAvatars)
+            foreach (GameObject avatar in networkAvatars)
             {
                 if (avatar.name.Contains("Client" + clientTankNeedsAvatarID))
                 {
@@ -142,7 +155,7 @@ namespace HiFi
                     clientTankNeedsAvatar = null;
                     clientTankNeedsAvatarID = -1;
                 }
-                
+
             }
         }
 

@@ -7,7 +7,11 @@ public class DisableIfNotLocal : MonoBehaviour
 {
     private void Start()
     {
-        if (!GetComponentInParent<RealtimeView>().isOwnedLocally)
-            gameObject.SetActive(false);
+        RealtimeView view = GetComponentInParent<RealtimeView>();
+        if (view != null)
+        {
+            if (!view.isOwnedLocally)
+                gameObject.SetActive(false);
+        }
     }
 }

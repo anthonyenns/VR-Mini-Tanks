@@ -17,8 +17,8 @@ namespace HiFi
 
             /// References - populated by PlatformInitializer
             public InputDevice leftHandDevice, rightHandDevice;
-            [SerializeField] TrackingOriginMode trackingOriginMode;
-            [SerializeField] TrackingSpaceType trackingSpaceType;
+            public TrackingOriginMode trackingOriginMode { get; private set; }
+            public TrackingSpaceType trackingSpaceType { get; private set; }
 
             /// <summary>
             /// Enum used for querying controller inputs. Use "none" to disable a preset. These generic names will be translated to the appropriate API-specific calls.
@@ -244,7 +244,7 @@ namespace HiFi
             /// <param name="hand"></param>
             /// <param name="input"></param>
             /// <returns></returns>
-            public  bool Hold(Hand hand, Button button)
+            public bool Hold(Hand hand, Button button)
             {
                 bool hold = false;
 
@@ -322,7 +322,7 @@ namespace HiFi
             /// <param name="hand"></param>
             /// <param name="axis"></param>
             /// <returns></returns>
-            public  float Value(Hand hand, Axis axis)
+            public float Value(Hand hand, Axis axis)
             {
                 float summedValues = 0f;
 
@@ -330,31 +330,31 @@ namespace HiFi
                 /// Left Hand
                 /// =========
                 if (hand == Hand.left || hand == Hand.either)
-                    {
-                        if (axis == Axis.trigger)
-                            summedValues += HiFi_InputProcessor.instance.Value[9];
-                        if (axis == Axis.grip)
-                            summedValues += HiFi_InputProcessor.instance.Value[11];
-                        if (axis == Axis.axis2D_X)
-                            summedValues += HiFi_InputProcessor.instance.Value[1];
-                        if (axis == Axis.axis2D_Y)
-                            summedValues += HiFi_InputProcessor.instance.Value[2];
-                    }
+                {
+                    if (axis == Axis.trigger)
+                        summedValues += HiFi_InputProcessor.instance.Value[9];
+                    if (axis == Axis.grip)
+                        summedValues += HiFi_InputProcessor.instance.Value[11];
+                    if (axis == Axis.axis2D_X)
+                        summedValues += HiFi_InputProcessor.instance.Value[1];
+                    if (axis == Axis.axis2D_Y)
+                        summedValues += HiFi_InputProcessor.instance.Value[2];
+                }
 
                 /// ==========
                 /// Right Hand
                 /// ==========
                 if (hand == Hand.right || hand == Hand.either)
-                    {
-                        if (axis == Axis.trigger)
-                            summedValues += HiFi_InputProcessor.instance.Value[10];
-                        if (axis == Axis.grip)
-                            summedValues += HiFi_InputProcessor.instance.Value[12];
-                        if (axis == Axis.axis2D_X)
-                            summedValues += HiFi_InputProcessor.instance.Value[4];
-                        if (axis == Axis.axis2D_Y)
-                            summedValues += HiFi_InputProcessor.instance.Value[5];
-                    }
+                {
+                    if (axis == Axis.trigger)
+                        summedValues += HiFi_InputProcessor.instance.Value[10];
+                    if (axis == Axis.grip)
+                        summedValues += HiFi_InputProcessor.instance.Value[12];
+                    if (axis == Axis.axis2D_X)
+                        summedValues += HiFi_InputProcessor.instance.Value[4];
+                    if (axis == Axis.axis2D_Y)
+                        summedValues += HiFi_InputProcessor.instance.Value[5];
+                }
 
                 return Mathf.Clamp(summedValues, -1.0f, 1.0f);
             }
@@ -367,7 +367,7 @@ namespace HiFi
             /// Returns true if any button is pressed, excluding any touch/release/axis events. CURRENTLY DISABLED
             /// </summary>
             /// <returns></returns>
-            public  bool AnyButtonPress()
+            public bool AnyButtonPress()
             {
                 return false;
             }
