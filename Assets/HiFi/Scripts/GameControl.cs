@@ -9,22 +9,24 @@ namespace HiFi
 {
     public class GameControl : MonoBehaviour
     {
+        [Header("Newtorking")]
         public bool realtimeEnabled = true;
         [SerializeField] Realtime realtime;
-        [SerializeField] int clientID = -1;
+        public int maxPlayersInRoom = 16;
+        [SerializeField] int playerID = -1; /// from Realtime ClientID
         [SerializeField] bool connectedToRoom;
         [SerializeField] GameObject offline;
 
+        [Header("References")]
         [SerializeField] GameObject localTank;
-        [SerializeField] GameObject localAvatar;
-        [SerializeField] List<GameObject> networkTanks = new List<GameObject>();
-        [SerializeField] List<GameObject> networkAvatars = new List<GameObject>();
+        [SerializeField] List<GameObject> playerTanks = new List<GameObject>();
 
+        [Header("Settings")]
         public HiFi_PresetButtonInput recenterButton;
 
-        private bool needToParentLocalAvatar = true;
+        private bool objectsWaitingForParent = false;
         private TankController clientTankNeedsAvatar;
-        private int clientTankNeedsAvatarID = -1;
+
 
         private void OnEnable()
         {
@@ -33,17 +35,22 @@ namespace HiFi
             {
                 realtime.didConnectToRoom += ConnectedToRoom;
                 realtime.didDisconnectFromRoom += DisconnectedFromRoom;
+
+                playerTanks.Capacity = maxPlayersInRoom;
             }
             else /// No networking
             {
                 realtime.gameObject.SetActive(false);
                 offline.SetActive(true);
+                playerID = 0;
+
+                playerTanks.Capacity = 1;
             }
             /// Player Objects Spawn Events
             TankSpawnEvent.TankSpawned += AddTankToList;
             TankSpawnEvent.TankDespawned += RemoveTankFromList;
-            AvatarSpawnEvent.AvatarSpawned += AddAvatarToList;
-            AvatarSpawnEvent.AvatarDespawned += RemoveAvatarFromList;
+            PlayerObjectSpawnEvent.ObjectSpawned += PlayerObjectHandler;
+            PlayerObjectSpawnEvent.ObjectDespawned += RemovePlayerObject;
 
         }
 
@@ -59,8 +66,8 @@ namespace HiFi
             /// Player Objects Spawn Events
             TankSpawnEvent.TankSpawned -= AddTankToList;
             TankSpawnEvent.TankDespawned -= RemoveTankFromList;
-            AvatarSpawnEvent.AvatarSpawned -= AddAvatarToList;
-            AvatarSpawnEvent.AvatarDespawned -= RemoveAvatarFromList;
+            PlayerObjectSpawnEvent.ObjectSpawned -= PlayerObjectHandler;
+            PlayerObjectSpawnEvent.ObjectDespawned -= RemovePlayerObject;
         }
 
         void Update()
@@ -73,101 +80,53 @@ namespace HiFi
             if (HiFi_Platform.instance.Preset(recenterButton))
                 InputTracking.Recenter();
 
-            /// Parent Local Avatar to Tank
-            if (needToParentLocalAvatar)
-                ParentLocalAvatar();
+            /// Parent Local PlayerObject to Tank
+            if (objectsWaitingForParent)
+                ();
 
-            /// Parent Network Avatar
+            /// Parent Network PlayerObject
             if (clientTankNeedsAvatar != null)
-                ParentClientAvatar();
+                ();
         }
 
-        private void AddTankToList(GameObject tank)
+        private void AddTankToList(GameObject tank, int id)
         {
-            if (tank.GetComponent<RealtimeView>().isOwnedLocally)
-            {
-                tank.name = "local_" + tank.name;
+            tank.name = "Player_" + id + "_Tank";
+            playerTanks[id] = tank;
+
+            if (id == playerID)
                 localTank = tank;
-            }
-            else
-            {
-                clientTankNeedsAvatar = tank.GetComponent<TankController>();
-                clientTankNeedsAvatarID = tank.GetComponent<RealtimeView>().ownerID;
-
-                tank.name = "Client" + clientTankNeedsAvatarID + "_" + tank.name;
-                networkTanks.Add(tank);
-            }
         }
 
-        private void RemoveTankFromList(GameObject tank)
+        private void RemoveTankFromList(GameObject tank, int id)
         {
-            if (tank != localTank)
-                networkTanks.Remove(tank);
+            playerTanks[id] = null;
+            if (id == playerID)
+                localTank = null;
         }
 
-        private void AddAvatarToList(GameObject avatar)
+        private void PlayerObjectHandler(GameObject obj, int id, bool parentToPlayer)
         {
-            if (avatar.GetComponent<RealtimeView>().isOwnedLocally)
-            {
-                avatar.name = "local_" + avatar.name;
-                localAvatar = avatar;
-            }
-            else
-            {
-                avatar.name = "Client" + avatar.GetComponent<RealtimeView>().ownerID + "_" + avatar.name;
-                networkAvatars.Add(avatar);
-            }
+            obj.name = "Player_" + id + obj.name;
+
+            if (parentToPlayer)
+                obj.transform.parent = playerTanks[id].transform;
         }
 
-        private void RemoveAvatarFromList(GameObject avatar)
+        private void RemovePlayerObject(GameObject obj, int id)
         {
-            if (avatar != localAvatar)
-                networkAvatars.Remove(avatar);
-        }
-
-        private void ParentLocalAvatar()
-        {
-            if (localTank != null && localAvatar != null)
-            {
-                TankController tankController = localTank.GetComponent<TankController>();
-                localAvatar.transform.parent = localTank.transform;
-
-                localAvatar.transform.localPosition = tankController.avatarSeatPosition;
-                localAvatar.transform.localRotation = Quaternion.identity;
-
-                InputTracking.Recenter();
-
-                needToParentLocalAvatar = false;
-            }
-        }
-
-        private void ParentClientAvatar()
-        {
-            foreach (GameObject avatar in networkAvatars)
-            {
-                if (avatar.name.Contains("Client" + clientTankNeedsAvatarID))
-                {
-                    avatar.transform.parent = clientTankNeedsAvatar.gameObject.transform;
-                    avatar.transform.localPosition = clientTankNeedsAvatar.avatarSeatPosition;
-                    avatar.transform.localRotation = Quaternion.identity;
-
-                    /// Clean up
-                    clientTankNeedsAvatar = null;
-                    clientTankNeedsAvatarID = -1;
-                }
-
-            }
+            /// Unused
         }
 
         private void ConnectedToRoom(Realtime realtime)
         {
-            clientID = realtime.clientID;
+            playerID = realtime.clientID;
             connectedToRoom = true;
         }
 
         private void DisconnectedFromRoom(Realtime realtime)
         {
-            clientID = realtime.clientID;
+            playerID = realtime.clientID;
             connectedToRoom = true;
         }
 

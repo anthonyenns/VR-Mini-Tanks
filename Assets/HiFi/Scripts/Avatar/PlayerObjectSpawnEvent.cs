@@ -5,10 +5,11 @@ using Normal.Realtime;
 
 namespace HiFi
 {
-    public class TankSpawnEvent : MonoBehaviour
+    public class PlayerObjectSpawnEvent : MonoBehaviour
     {
-        public static Action<GameObject, int> TankSpawned;
-        public static Action<GameObject, int> TankDespawned;
+        public static Action<GameObject, int, bool> ObjectSpawned;
+        public static Action<GameObject, int> ObjectDespawned;
+        public bool parentToPlayerOnSpawn = true;
         private int clientID;
 
         void Start()
@@ -22,12 +23,12 @@ namespace HiFi
                 Debug.Log(gameObject.name + " has no RealtimeView attached and has been assigned to player 0.");
             }
 
-            TankSpawned(gameObject, clientID);
+            ObjectSpawned(gameObject, clientID, parentToPlayerOnSpawn);
         }
 
         private void OnDisable()
         {
-            TankDespawned(gameObject, clientID);
+            ObjectDespawned(gameObject, clientID);
         }
     }
 }
