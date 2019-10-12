@@ -16,6 +16,7 @@ namespace HiFi
         {
             public bool XREnabled;
             public TrackingSpaceType targetTrackingSpace;
+            public float refreshRate = 2.0f;
             public HiFi_PresetButtonInput recenterButton;
 
             [Header("Hand Controllers Setup:")]
@@ -25,7 +26,6 @@ namespace HiFi
             public HiFi_ControllerOffsets setupWMR;
             public HiFi_ControllerOffsets setupWMROpenVR;
 
-            public int refreshRate = 3;
             [Range(1.0f, 2.0f)] public float renderScale = 1.0f;
 
             [Header("XR System Info (Auto):")]
@@ -39,18 +39,21 @@ namespace HiFi
             public List<InputDevice> leftHandDevices = new List<InputDevice>();
             public List<InputDevice> rightHandDevices = new List<InputDevice>();
 
-            [Header("HiFi_Input Bridge Enabled (Auto):")]
-            private string allNodes, devices;
+            private string allNodes, prevNodes, devices, inputs, prevInputs;
             private HiFi_ControllerOffsets detectedOffsets;
+            private IEnumerator updateSystem;
 
             /// ====================================================================================
-            /// Awake
+            /// OnEnable
             /// ====================================================================================
-            private void Awake()
+            private void OnEnable()
             {
                 /// Enable XR
                 XRSettings.enabled = XREnabled;
+            }
 
+            private void Awake()
+            {
                 if (XREnabled)
                 {
                     /// List Build Supported Devices
@@ -61,7 +64,6 @@ namespace HiFi
 
                     /// Get XR System info and set tracking space
                     SetupXREnvironment();
-
                 }
             }
 
@@ -78,22 +80,10 @@ namespace HiFi
                 model = XRDevice.model;
                 HiFi_Utilities.DebugText($"Found XR System - ({family}) running a ({model}) HMD. ");
 
-                /// Get device info from XR Nodes
-                GetHandsDevices();
-
-                /// Display Input Devices
-                InputDevices.GetDevices(inputDevices);
-                foreach (InputDevice device in inputDevices)
-                {
-                    HiFi_Utilities.DebugText($"InputDevices: Device found with name ({device.name}) and role ({device.role.ToString()})");
-                }
-
-                /// XR nodes, get and list
-                InputTracking.GetNodeStates(nodeStates);
-                foreach (XRNodeState node in nodeStates)
-                    allNodes += node.nodeType.ToString() + ", ";
-                HiFi_Utilities.DebugText($"XRNodes present: ({allNodes})");
-
+                /// Coroutine
+                updateSystem = UpdateSystem();
+                StartCoroutine(updateSystem);
+            
                 /// Haptics... seems broken
                 /*InputDevice rightHandDevice = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
                 HapticCapabilities capabilities;
@@ -112,7 +102,7 @@ namespace HiFi
                 XRSettings.eyeTextureResolutionScale = renderScale;
 
                 /// Set Initial Tracking Space
-                HiFi_Platform.instance.SetTrackingSpace(targetTrackingSpace, false);
+                HiFi_Platform.instance.SetTrackingSpace(targetTrackingSpace, true);
             }
 
             /// ====================================================================================
@@ -195,23 +185,57 @@ namespace HiFi
             private void GetHandsDevices()
             {
                 InputDevices.GetDevicesAtXRNode(XRNode.LeftHand, leftHandDevices);
-                if (leftHandDevices.Count == 1)
+                if (leftHandDevices.Count > 0)
                 {
                     if (HiFi_Platform.instance.leftHandDevice != leftHandDevices[0])
+                    {
                         Debug.Log($"Device name ({leftHandDevices[0].name}) with role ({leftHandDevices[0].role.ToString()})");
-                    HiFi_Platform.instance.leftHandDevice = leftHandDevices[0];
+                        HiFi_Platform.instance.leftHandDevice = leftHandDevices[0];
+                    }
                 }
 
                 InputDevices.GetDevicesAtXRNode(XRNode.RightHand, rightHandDevices);
-                if (rightHandDevices.Count == 1)
+                if (rightHandDevices.Count > 0)
                 {
                     if (HiFi_Platform.instance.rightHandDevice != rightHandDevices[0])
+                    {
                         Debug.Log($"Device name ({rightHandDevices[0].name}) with role ({rightHandDevices[0].role.ToString()})");
-                    HiFi_Platform.instance.rightHandDevice = rightHandDevices[0];
+                        HiFi_Platform.instance.rightHandDevice = rightHandDevices[0];
+                    }
                 }
             }
 
+            private IEnumerator UpdateSystem()
+            {
+                while (true)
+                {
+                    allNodes = string.Empty;
+                    inputs = string.Empty;
 
+                    /// Get device info from XR Nodes
+                    GetHandsDevices();
+
+                    /// Display Input Devices
+                    InputDevices.GetDevices(inputDevices);
+                    foreach (InputDevice device in inputDevices)
+                        inputs += $"InputDevices: Device found with name ({device.name}) and role ({device.role.ToString()})\n";
+
+                    /// XR nodes, get and list
+                    InputTracking.GetNodeStates(nodeStates);
+                    foreach (XRNodeState node in nodeStates)
+                        allNodes += node.nodeType.ToString() + ", ";
+                    
+                    if(allNodes != prevNodes)
+                        HiFi_Utilities.DebugText($"XRNodes present: ({allNodes})");
+                    prevNodes = allNodes;
+
+                    if (inputs != prevInputs)
+                        HiFi_Utilities.DebugText(inputs);
+                    prevInputs = inputs;
+
+                    yield return new WaitForSeconds(refreshRate);
+                }
+            }
         }
     }
 }

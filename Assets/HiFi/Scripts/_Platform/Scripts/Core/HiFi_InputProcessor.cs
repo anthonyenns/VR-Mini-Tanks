@@ -40,19 +40,13 @@ namespace HiFi
             private bool invertFlag, bInput;
             private Vector2 vInput, joystickL, joystickR;
             private float fInput, axisValue;
-            private InputDevice left, right;
 
             private void Awake()
             {
                 if (instance == null)
                     instance = this;
 
-                if (XRSettings.enabled)
-                {
-                    left = HiFi_Platform.instance.leftHandDevice;
-                    right = HiFi_Platform.instance.rightHandDevice;
-                }
-                else
+                if (!XRSettings.enabled)
                     enabled = false;
             }
 

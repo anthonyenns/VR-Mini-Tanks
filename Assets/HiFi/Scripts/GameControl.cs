@@ -9,13 +9,17 @@ namespace HiFi
 {
     public class GameControl : MonoBehaviour
     {
+        public static GameControl instance = null;
+
         [Header("Networking")]
         public bool realtimeEnabled = true;
-        [SerializeField] Realtime realtime;
         public int maxPlayers = 16;
-        [SerializeField] int playerID = -1; /// from Realtime ClientID
+        [SerializeField] int playerID = -1; /// fetched from Realtime ClientID
         [SerializeField] bool connectedToRoom;
-        [SerializeField] GameObject offline;
+        [SerializeField] GameObject realtimeSetup;
+        [SerializeField] GameObject realtimeNoVRSetup;
+        [SerializeField] GameObject offlineSetup;
+        private Realtime realtime;
 
         [Header("References")]
         [SerializeField] GameObject localTank;
@@ -28,9 +32,17 @@ namespace HiFi
 
         private void OnEnable()
         {
+            if (instance == null)
+                instance = this;
+
             /// Realtime
-            if (realtimeEnabled)
+            if (realtimeEnabled && XRSettings.enabled)
             {
+                realtimeSetup.SetActive(true);
+                realtimeNoVRSetup.SetActive(false);
+                offlineSetup.SetActive(false);
+
+                realtime = realtimeSetup.GetComponent<Realtime>();
                 realtime.didConnectToRoom += ConnectedToRoom;
                 realtime.didDisconnectFromRoom += DisconnectedFromRoom;
 
@@ -40,14 +52,36 @@ namespace HiFi
                     playerTanks.Add(null);
                 }
             }
-            else /// No networking
+            /// Realtime no VR
+            else if (realtimeEnabled && !XRSettings.enabled)
             {
-                realtime.gameObject.SetActive(false);
-                offline.SetActive(true);
+                realtimeSetup.SetActive(false);
+                realtimeNoVRSetup.SetActive(true);
+                offlineSetup.SetActive(false);
+
+                realtime = realtimeNoVRSetup.GetComponent<Realtime>();
+                realtime.didConnectToRoom += ConnectedToRoom;
+                realtime.didDisconnectFromRoom += DisconnectedFromRoom;
+
+                playerTanks.Capacity = maxPlayers;
+                for (int i = 0; i < maxPlayers; i++)
+                {
+                    playerTanks.Add(null);
+                }
+
+            }
+            /// No Realtime (offline)
+            else if (!realtimeEnabled)
+            {
+                realtimeSetup.SetActive(false);
+                realtimeNoVRSetup.SetActive(false);
+                offlineSetup.SetActive(true);
+
                 playerID = 0;
 
                 playerTanks.Add(null);
             }
+
             /// Player Objects Spawn Events
             TankSpawnEvent.TankSpawned += AddTankToList;
             TankSpawnEvent.TankDespawned += RemoveTankFromList;
@@ -178,8 +212,8 @@ namespace HiFi
         /// <param name="realtime"></param>
         private void DisconnectedFromRoom(Realtime realtime)
         {
-            playerID = realtime.clientID;
-            connectedToRoom = true;
+            playerID = -1;
+            connectedToRoom = false;
         }
 
         /// <summary>

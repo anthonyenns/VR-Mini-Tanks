@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Normal.Realtime;
+using UnityEngine.XR;
 
-namespace Normal.Realtime.Examples
+namespace HiFi
 {
     public class OfflineSpawner : MonoBehaviour
     {
@@ -9,12 +9,16 @@ namespace Normal.Realtime.Examples
         public bool randomPosition;
         public Vector2 randomRadiusHeight;
         public bool randomRotation;
+        public bool vROnly;
 
         private Vector3 spawnPos;
         private Quaternion spawnRot;
 
         private void Awake()
         {
+            if (vROnly && !XRSettings.enabled)
+                obj = null;
+
             /// Position
             if (randomPosition)
             {
@@ -35,7 +39,8 @@ namespace Normal.Realtime.Examples
 
         private void Start()
         {
-            Instantiate(obj, spawnPos, spawnRot);
+            if (obj != null)
+                Instantiate(obj, spawnPos, spawnRot);
         }
     }
 }

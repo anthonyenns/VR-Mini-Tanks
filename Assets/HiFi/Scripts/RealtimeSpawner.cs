@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Normal.Realtime;
 
-namespace Normal.Realtime.Examples
+namespace HiFi
 {
     public class RealtimeSpawner : MonoBehaviour
     {

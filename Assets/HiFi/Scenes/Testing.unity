@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 143431749}
   - component: {fileID: 143431750}
   m_Layer: 0
-  m_Name: Offline-KeepDisabled
+  m_Name: Offline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,11 +145,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143431747}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 432010688}
+  m_Father: {fileID: 700060953}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &143431749
@@ -168,6 +168,7 @@ MonoBehaviour:
   randomPosition: 1
   randomRadiusHeight: {x: 10, y: 1}
   randomRotation: 1
+  vROnly: 0
 --- !u!114 &143431750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +185,7 @@ MonoBehaviour:
   randomPosition: 0
   randomRadiusHeight: {x: 0, y: 0}
   randomRotation: 0
+  vROnly: 1
 --- !u!1 &432010686
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,11 +216,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   realtimeEnabled: 0
-  realtime: {fileID: 114501696257053271}
   maxPlayers: 16
   playerID: -1
   connectedToRoom: 0
-  offline: {fileID: 143431747}
+  realtimeSetup: {fileID: 1572161793349617}
+  realtimeNoVRSetup: {fileID: 1614665658}
+  offlineSetup: {fileID: 143431747}
   localTank: {fileID: 0}
   playerTanks: []
   waitingForParent: []
@@ -238,10 +241,42 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4112774974896298720}
-  - {fileID: 4520454929850609}
-  - {fileID: 143431748}
+  - {fileID: 700060953}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &700060952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700060953}
+  m_Layer: 0
+  m_Name: Setups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &700060953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700060952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4520454929850609}
+  - {fileID: 1614665659}
+  - {fileID: 143431748}
+  m_Father: {fileID: 432010688}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &779484855
 GameObject:
@@ -431,6 +466,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1614665658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1614665659}
+  - component: {fileID: 1614665661}
+  - component: {fileID: 1614665660}
+  m_Layer: 0
+  m_Name: RealtimeNoVR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1614665659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614665658}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 700060953}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1614665660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614665658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86bbb5b90110f499095e7840e894aa9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceName: TestyTank
+  randomPosition: 1
+  randomRadiusHeight: {x: 10, y: 1}
+  randomRotation: 1
+--- !u!114 &1614665661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614665658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc36e26f2282a457da21098124cb9f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _appKey: 6c951fbe-1191-4331-8f4f-f605e9ab6ea6
+  _roomToJoinOnStart: Test Room
+  _joinRoomOnStart: 1
+  _debugLogging: 0
 --- !u!1 &1927974866
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1572161793349618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,7 +665,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f677182320c927b428885e9ce6272f1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ba8f3a801545497fb84b237ee018fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _localAvatarPrefab: {fileID: 1435502846325602, guid: 4c68a665116d54b138d95bdd76c876b2,
@@ -587,8 +686,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 432010688}
-  m_RootOrder: 1
+  m_Father: {fileID: 700060953}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114501696257053271
 MonoBehaviour:
@@ -621,9 +720,9 @@ MonoBehaviour:
   XREnabled: 1
   targetTrackingSpace: 0
   recenterButton:
-    method: 0
-    hand: 0
-    button: 0
+    method: 1
+    hand: 3
+    button: 11
   setupOculusTouch:
     leftOrigin: {x: 0, y: 0, z: 0}
     rightOrigin: {x: 0, y: 0, z: 0}
