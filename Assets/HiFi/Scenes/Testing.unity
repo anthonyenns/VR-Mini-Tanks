@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 143431748}
   - component: {fileID: 143431749}
+  - component: {fileID: 143431750}
   m_Layer: 0
   m_Name: Offline-KeepDisabled
   m_TagString: Untagged
@@ -167,6 +168,22 @@ MonoBehaviour:
   randomPosition: 1
   randomRadiusHeight: {x: 10, y: 1}
   randomRotation: 1
+--- !u!114 &143431750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143431747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f357e5f32cb5648a29de01914dbbb18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 5713501277225586944, guid: aecc3ea0a08d7b24ab15b4010db602dc, type: 3}
+  randomPosition: 0
+  randomRadiusHeight: {x: 0, y: 0}
+  randomRotation: 0
 --- !u!1 &432010686
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,17 +215,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   realtimeEnabled: 0
   realtime: {fileID: 114501696257053271}
-  clientID: -1
+  maxPlayers: 16
+  playerID: -1
   connectedToRoom: 0
   offline: {fileID: 143431747}
   localTank: {fileID: 0}
-  localAvatar: {fileID: 0}
-  networkTanks: []
-  networkAvatars: []
+  playerTanks: []
+  waitingForParent: []
   recenterButton:
-    method: 0
-    hand: 0
-    button: 0
+    method: 1
+    hand: 3
+    button: 11
 --- !u!4 &432010688
 Transform:
   m_ObjectHideFlags: 0
@@ -549,7 +566,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572161793349617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba8f3a801545497fb84b237ee018fcc, type: 3}
+  m_Script: {fileID: 11500000, guid: f677182320c927b428885e9ce6272f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _localAvatarPrefab: {fileID: 1435502846325602, guid: 4c68a665116d54b138d95bdd76c876b2,
@@ -601,7 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4282e2285097f483584125ed54c7aff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XREnabled: 0
+  XREnabled: 1
   targetTrackingSpace: 0
   recenterButton:
     method: 0
