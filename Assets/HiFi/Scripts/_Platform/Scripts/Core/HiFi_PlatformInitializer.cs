@@ -233,6 +233,8 @@ namespace HiFi
                         HiFi_Utilities.DebugText(inputs);
                     prevInputs = inputs;
 
+                    userPresence = XRDevice.userPresence;
+
                     yield return new WaitForSeconds(refreshRate);
                 }
             }

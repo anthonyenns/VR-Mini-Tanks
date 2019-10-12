@@ -20,10 +20,11 @@ namespace HiFi
         public bool runInLateUpdate = false;
 
         private List<XRNodeState> nodeStates = new List<XRNodeState>();
-        private bool headActive, leftHandActive, rightHandActive, headPreviousActive;
+        private bool headActive, leftHandActive, rightHandActive;
         private Vector3 position;
         private Quaternion rotation;
         private Transform geo;
+        private UserPresenceState userPresenceCache;
 
         private void Start()
         {
@@ -81,10 +82,11 @@ namespace HiFi
                 leftHand.gameObject.SetActive(leftHandActive);
                 rightHand.gameObject.SetActive(rightHandActive);
 
-                if (headActive && !headPreviousActive)
+                /// Recenter HMD if now present but wasn't before
+                if (userPresenceCache != UserPresenceState.Present && XRDevice.userPresence == UserPresenceState.Present)
                     InputTracking.Recenter();
 
-                headPreviousActive = headActive;
+                userPresenceCache = XRDevice.userPresence;
             }
         }
 

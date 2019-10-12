@@ -719,6 +719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   XREnabled: 1
   targetTrackingSpace: 0
+  refreshRate: 3
   recenterButton:
     method: 1
     hand: 3
@@ -748,7 +749,6 @@ MonoBehaviour:
     rightOrigin: {x: 0, y: 0, z: 0}
     leftAimDirection: {x: 0, y: 0, z: 0}
     rightAimDirection: {x: 0, y: 0, z: 0}
-  refreshRate: 3
   renderScale: 1
   family: none
   model: none
