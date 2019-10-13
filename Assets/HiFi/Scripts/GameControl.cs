@@ -25,6 +25,7 @@ namespace HiFi
         [SerializeField] GameObject localTank;
         [SerializeField] List<GameObject> playerTanks = new List<GameObject>();
         [SerializeField] List<PlayerObject> waitingForParent = new List<PlayerObject>();
+        [SerializeField] List<GameObject> tanksWaitingList = new List<GameObject>();
 
         [Header("Settings")]
         public HiFi_PresetButtonInput recenterButton;
@@ -118,31 +119,75 @@ namespace HiFi
             /// Parent Local PlayerObject to Tank
             if (waitingForParent.Count > 0)
             {
-                Debug.Log("Attempting to parent player items on waiting list.");
                 for (int i = waitingForParent.Count - 1; i >= 0; i--)
                 {
-                    if(playerTanks[waitingForParent[i].id] != null)
+                    if (playerTanks[waitingForParent[i].id] != null)
                     {
                         SetParent(playerTanks[waitingForParent[i].id], waitingForParent[i].obj);
-                        Debug.Log("Removing " + waitingForParent[i].obj.name + " from waiting list.");
+                        HiFi_Utilities.DebugText("Removing " + waitingForParent[i].obj.name + " from waiting list.");
                         waitingForParent.RemoveAt(i);
+                    }
+                }
+            }
+
+            /// Tanks waiting for ID to update
+            for (int i = tanksWaitingList.Count - 1; i >= 0; i--)
+            {
+                RealtimeView view = tanksWaitingList[i].GetComponent<RealtimeView>();
+                if (view.ownerID != playerID)
+                {
+                    if (playerTanks[view.ownerID] == null)
+                    {
+                        tanksWaitingList[i].name = "Player_" + view.ownerID + "_Tank";
+                        playerTanks[view.ownerID] = tanksWaitingList[i];
+                        tanksWaitingList.RemoveAt(i);
+                        HiFi_Utilities.DebugText("Tank on waiting list with ID " + view.ownerID + " has been added to playerTanks list.");
+                    }
+                    else
+                    {
+                        HiFi_Utilities.DebugText("PLAYER TANK WITH ID " + view.ownerID + " ALREADY EXISTS - ABORTING");
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Adds spawned tank to GameControl list of tanks and renames. Also caches local reference.
+        /// Adds spawned tank to GameControl list of tanks and renames.
         /// </summary>
         /// <param name="tank"></param>
         /// <param name="id"></param>
-        private void AddTankToList(GameObject tank, int id)
+        private void AddTankToList(GameObject tank)
         {
-            tank.name = "Player_" + id + "_Tank";
-            playerTanks[id] = tank;
+            if (tank == localTank)
+                return;
 
+            int id = tank.GetComponent<RealtimeView>().ownerID;
             if (id == playerID)
-                localTank = tank;
+            {
+                tanksWaitingList.Add(tank);
+                HiFi_Utilities.DebugText("Adding Tank to waiting list");
+            }
+            else if (playerTanks[id] == null)
+            { 
+                tank.name = "Player_" + id + "_Tank";
+                playerTanks[id] = tank;
+            }
+            else
+            {
+                HiFi_Utilities.DebugText("PLAYER TANK WITH ID " + id + " ALREADY EXISTS - ABORTING");
+            }
+        }
+
+        /// <summary>
+        /// Set local tank reference.
+        /// </summary>
+        /// <param name="tank"></param>
+        public void AddLocalTank(GameObject tank, int id)
+        {
+            HiFi_Utilities.DebugText("Adding Local Tank reference at ID " + id);
+            tank.name = "Player_" + id + "_Tank";
+            localTank = tank;
+            playerTanks[id] = tank;
         }
 
         /// <summary>
@@ -150,8 +195,11 @@ namespace HiFi
         /// </summary>
         /// <param name="tank"></param>
         /// <param name="id"></param>
-        private void RemoveTankFromList(GameObject tank, int id)
+        private void RemoveTankFromList(GameObject tank)
         {
+            int id = tank.GetComponent<RealtimeView>().ownerID;
+
+            HiFi_Utilities.DebugText("Removing Tank ID " + id);
             playerTanks[id] = null;
             if (id == playerID)
                 localTank = null;
@@ -163,8 +211,11 @@ namespace HiFi
         /// <param name="obj"></param>
         /// <param name="id"></param>
         /// <param name="parentToPlayer"></param>
-        private void PlayerObjectHandler(GameObject obj, int id, bool parentToPlayer)
+        private void PlayerObjectHandler(GameObject obj, bool parentToPlayer)
         {
+            int id = obj.GetComponent<RealtimeView>().ownerID;
+            HiFi_Utilities.DebugText("PlayerObject has spawned with ID " + id);
+
             obj.name = "Player_" + id + "_" + obj.name;
 
             if (parentToPlayer)
@@ -177,7 +228,7 @@ namespace HiFi
 
                     waitingForParent.Add(pObj);
 
-                    Debug.Log(obj.name + " is added to waiting list");
+                    HiFi_Utilities.DebugText(obj.name + " is added to waiting list");
                 }
                 else
                 {
@@ -191,7 +242,7 @@ namespace HiFi
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="id"></param>
-        private void RemovePlayerObject(GameObject obj, int id)
+        private void RemovePlayerObject(GameObject obj)
         {
             /// Unused
         }
@@ -204,6 +255,7 @@ namespace HiFi
         {
             playerID = realtime.clientID;
             connectedToRoom = true;
+            HiFi_Utilities.DebugText("Connected -- Realtime ClientID " + realtime.clientID);
         }
 
         /// <summary>
@@ -223,15 +275,20 @@ namespace HiFi
         /// <param name="child"></param>
         private void SetParent(GameObject parent, GameObject child)
         {
-            child.transform.parent = parent.transform;
-            child.transform.localPosition = Vector3.zero;
-            child.transform.localRotation = Quaternion.identity;
-
-            if(child.CompareTag("VRAvatar"))
+            /// Special parenting instructions for VR Avatar (parent to Camera Null)
+            if (child.CompareTag("VRAvatar"))
             {
                 TankController tc = parent.GetComponent<TankController>();
-                child.transform.localPosition = tc.avatarSeatPosition;
+                child.transform.parent = tc.cameraNull.transform;
+                child.transform.localPosition = Vector3.zero;
+                child.transform.localRotation = Quaternion.identity;
                 InputTracking.Recenter();
+            }
+            else
+            {   /// Normal centered parenting
+                child.transform.parent = parent.transform;
+                child.transform.localPosition = Vector3.zero;
+                child.transform.localRotation = Quaternion.identity;
             }
         }
 

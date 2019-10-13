@@ -189,7 +189,7 @@ namespace HiFi
                 {
                     if (HiFi_Platform.instance.leftHandDevice != leftHandDevices[0])
                     {
-                        Debug.Log($"Device name ({leftHandDevices[0].name}) with role ({leftHandDevices[0].role.ToString()})");
+                        HiFi_Utilities.DebugText($"Device name ({leftHandDevices[0].name}) with role ({leftHandDevices[0].role.ToString()})");
                         HiFi_Platform.instance.leftHandDevice = leftHandDevices[0];
                     }
                 }
@@ -199,7 +199,7 @@ namespace HiFi
                 {
                     if (HiFi_Platform.instance.rightHandDevice != rightHandDevices[0])
                     {
-                        Debug.Log($"Device name ({rightHandDevices[0].name}) with role ({rightHandDevices[0].role.ToString()})");
+                        HiFi_Utilities.DebugText($"Device name ({rightHandDevices[0].name}) with role ({rightHandDevices[0].role.ToString()})");
                         HiFi_Platform.instance.rightHandDevice = rightHandDevices[0];
                     }
                 }

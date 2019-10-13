@@ -5,23 +5,24 @@ namespace HiFi
 {
     public class RealtimeSpawner : MonoBehaviour
     {
-
         public string resourceName;
         public bool randomPosition;
         public Vector2 randomRadiusHeight;
         public bool randomRotation;
 
-        private Realtime _realtime;
+        private Realtime realtime;
         private Vector3 spawnPos;
         private Quaternion spawnRot;
+        private GameObject tank;
+        private RealtimeView view;
 
         private void Awake()
         {
-            // Get the Realtime component on this game object
-            _realtime = GetComponent<Realtime>();
+            /// Get the Realtime component on this game object
+            realtime = GetComponent<Realtime>();
 
-            // Notify us when Realtime successfully connects to the room
-            _realtime.didConnectToRoom += DidConnectToRoom;
+            /// Notify us when Realtime successfully connects to the room
+            realtime.didConnectToRoom += DidConnectToRoom;
 
             /// Position
             if (randomPosition)
@@ -39,19 +40,26 @@ namespace HiFi
             }
             else
                 spawnRot = Quaternion.identity;
+
+            /// Add Terrain Height
+            spawnPos.y += Terrain.activeTerrain.SampleHeight(spawnPos);
         }
 
         private void DidConnectToRoom(Realtime realtime)
         {
             if (resourceName != null && resourceName != string.Empty)
-                // Instantiate the CubePlayer for this client once we've successfully connected to the room
-                Realtime.Instantiate(resourceName,                 // Prefab name
+                /// Instantiate the CubePlayer for this client once we've successfully connected to the room
+               tank = Realtime.Instantiate(resourceName,                 // Prefab name
                                 position: spawnPos,          
                                 rotation: spawnRot, 
                            ownedByClient: true,                // Make sure the RealtimeView on this prefab is owned by this client
                 preventOwnershipTakeover: true,                // Prevent other clients from calling RequestOwnership() on the root RealtimeView.
                              useInstance: realtime);           // Use the instance of Realtime that fired the didConnectToRoom event.
 
+            view = tank.GetComponent<RealtimeView>();
+            view.RequestOwnership();
+            HiFi_Utilities.DebugText("Local Realtime Triggered Tank Spawn ID " + view.ownerID);
+            GameControl.instance.AddLocalTank(tank, view.ownerID);
         }
     }
 }

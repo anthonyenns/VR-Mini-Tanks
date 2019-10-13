@@ -11,9 +11,10 @@ namespace HiFi
         public float turnSpeed = 15.0f;
         public float forwardSpeed = 0.5f;
 
-        float sumThrottle;
-        Rigidbody rb;
-        Vector3 movement;
+        private float sumThrottle, leftTurn, rightTurn, turnSum;
+        private Rigidbody rb;
+        private Vector3 movement;
+        private bool sameDirection, leftDominant, rightDominant;
 
         private void Awake()
         {
@@ -23,14 +24,16 @@ namespace HiFi
 
         private void Start()
         {
-            if (controller._realtimeView != null)
-                controller._realtimeView.RequestOwnership();
+            if (controller.realtimeView != null)
+                controller.realtimeView.RequestOwnership();
         }
 
         private void FixedUpdate()
         {
             if (rb != null && controller.ownedLocally)
             {
+                //Tests();
+
                 Turn();
                 Move();
             }
@@ -38,10 +41,13 @@ namespace HiFi
 
         private void Turn()
         {
-            float turn = (controller.leftSpeed * turnSpeed * Time.deltaTime) - (controller.rightSpeed * turnSpeed * Time.deltaTime);
+            /// Basic Turn Values
+            leftTurn = (controller.leftSpeed * turnSpeed * Time.deltaTime);
+            rightTurn = (controller.rightSpeed * turnSpeed * Time.deltaTime);
 
-            Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
+            /// Apply Turn
+            turnSum = leftTurn - rightTurn;
+            Quaternion turnRotation = Quaternion.Euler(0f, turnSum, 0f);
             rb.MoveRotation(rb.rotation * turnRotation);
         }
 
@@ -49,17 +55,28 @@ namespace HiFi
         {
             sumThrottle = 0;
 
-            if (controller.leftSpeed < 0 && controller.rightSpeed < 0)
-                sumThrottle = controller.leftSpeed >= controller.rightSpeed ? controller.leftSpeed : controller.rightSpeed;
+            sumThrottle = (controller.leftSpeed + controller.rightSpeed) * 0.5f;
 
-            if (controller.leftSpeed > 0 && controller.rightSpeed > 0)
-                sumThrottle = controller.leftSpeed <= controller.rightSpeed ? controller.leftSpeed : controller.rightSpeed;
-
+            /// Apply Movement
             movement = rb.transform.forward * sumThrottle * forwardSpeed * Time.deltaTime;
-
             rb.MovePosition(rb.position + movement);
         }
 
+        private void Tests()
+        {
+            sameDirection = false;
+            leftDominant = false;
+            rightDominant = false;
 
+            /// Both Tracks Same Direction ?
+            if ((controller.leftSpeed > 0 && controller.rightSpeed > 0) || (controller.leftSpeed < 0 && controller.rightSpeed < 0))
+                sameDirection = true;
+
+            /// Left or Right Dominant ?
+            if (Mathf.Abs(controller.leftSpeed) > Mathf.Abs(controller.rightSpeed))
+                leftDominant = true;
+            if (Mathf.Abs(controller.leftSpeed) < Mathf.Abs(controller.rightSpeed))
+                rightDominant = true;
+        }
     }
 }

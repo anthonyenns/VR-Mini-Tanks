@@ -13,7 +13,7 @@ public class TankSync : RealtimeComponent
     {
         set
         {
-            // Store the model
+            /// Store the model
             _model = value;
         }
     }
@@ -26,14 +26,11 @@ public class TankSync : RealtimeComponent
 
     private void Update()
     {
-        UpdateTankControllerSpeeds();    
-    }
-
-    private void UpdateTankControllerSpeeds()
-    {
         tankController.leftSpeed = _model.trackLeftSpeed;
         tankController.rightSpeed = _model.trackRightSpeed;
+        tankController.gunAngle = _model.gunAngle;
     }
+
 
     /// ==== PUBLIC =====
 
@@ -41,6 +38,11 @@ public class TankSync : RealtimeComponent
     {
         _model.trackLeftSpeed = speed.x;
         _model.trackRightSpeed = speed.y;
+    }
+
+    public void SetGunAngle(float angle)
+    {
+        _model.gunAngle = angle;
     }
 }
 

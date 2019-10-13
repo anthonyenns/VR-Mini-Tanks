@@ -35,10 +35,13 @@ namespace HiFi
             }
             else
                 spawnRot = Quaternion.identity;
+
+            /// Add Terrain Height
+            spawnPos.y += Terrain.activeTerrain.SampleHeight(spawnPos);
         }
 
         private void Start()
-        {
+        {        
             if (obj != null)
                 Instantiate(obj, spawnPos, spawnRot);
         }

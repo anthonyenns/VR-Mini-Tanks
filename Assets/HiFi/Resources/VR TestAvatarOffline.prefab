@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 5713501276205628733}
   - component: {fileID: 5713501276205628729}
   - component: {fileID: 5713501276205628734}
-  - component: {fileID: 5713501276205628735}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -110,19 +109,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5713501276205628735
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5713501276205628866}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5713501276738385615
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +120,6 @@ GameObject:
   - component: {fileID: 5713501276738385614}
   - component: {fileID: 5713501276738385610}
   - component: {fileID: 5713501276738385611}
-  - component: {fileID: 5713501276738385608}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -202,19 +187,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5713501276738385608
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5713501276738385615}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5713501276807000325
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +198,6 @@ GameObject:
   - component: {fileID: 5713501276807000324}
   - component: {fileID: 5713501276807000320}
   - component: {fileID: 5713501276807000321}
-  - component: {fileID: 5713501276807000326}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -294,19 +265,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &5713501276807000326
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5713501276807000325}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5713501276924947014
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +308,7 @@ GameObject:
   - component: {fileID: 5713501277225586946}
   - component: {fileID: 5713501277225587069}
   m_Layer: 0
-  m_Name: VR PlayerOffline
+  m_Name: VR TestAvatarOffline
   m_TagString: VRAvatar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

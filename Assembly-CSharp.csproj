@@ -77,15 +77,13 @@
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Extensions.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Utilities.cs" />
     <Compile Include="Assets\HiFi\Scripts\Data Type\PlayerObject.cs" />
-    <Compile Include="Assets\HiFi\Scripts\debugger.cs" />
-    <Compile Include="Assets\HiFi\Scripts\DisableIfNotLocal.cs" />
     <Compile Include="Assets\HiFi\Scripts\DisableOnPlay.cs" />
     <Compile Include="Assets\HiFi\Scripts\GameControl.cs" />
-    <Compile Include="Assets\HiFi\Scripts\ObjectSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\OfflineSpawner.cs" />
     <Compile Include="Assets\HiFi\Scripts\PlayerObjects\PlayerObjectSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\RealtimeSpawner.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankController.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Tank\TankGunControl.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankMover.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSync.cs" />
