@@ -41,9 +41,11 @@ namespace HiFi
         }
 
         private void Start()
-        {        
+        {
             if (obj != null)
+            {
                 Instantiate(obj, spawnPos, spawnRot);
+            }
         }
     }
 }

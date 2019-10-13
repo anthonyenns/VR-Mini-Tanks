@@ -161,20 +161,29 @@ namespace HiFi
             if (tank == localTank)
                 return;
 
-            int id = tank.GetComponent<RealtimeView>().ownerID;
-            if (id == playerID)
+            RealtimeView view = tank.GetComponent<RealtimeView>();
+
+            if (view != null)
             {
-                tanksWaitingList.Add(tank);
-                HiFi_Utilities.DebugText("Adding Tank to waiting list");
-            }
-            else if (playerTanks[id] == null)
-            { 
-                tank.name = "Player_" + id + "_Tank";
-                playerTanks[id] = tank;
+                if (view.ownerID == playerID)
+                {
+                    tanksWaitingList.Add(tank);
+                    HiFi_Utilities.DebugText("Adding Tank to waiting list");
+                }
+                else if (playerTanks[view.ownerID] == null)
+                {
+                    tank.name = "Player_" + view.ownerID + "_Tank";
+                    playerTanks[view.ownerID] = tank;
+                }
+                else
+                {
+                    HiFi_Utilities.DebugText("PLAYER TANK WITH ID " + view.ownerID + " ALREADY EXISTS - ABORTING");
+                }
             }
             else
             {
-                HiFi_Utilities.DebugText("PLAYER TANK WITH ID " + id + " ALREADY EXISTS - ABORTING");
+                /// Offline default player 0
+                AddLocalTank(tank, 0);
             }
         }
 
@@ -197,7 +206,10 @@ namespace HiFi
         /// <param name="id"></param>
         private void RemoveTankFromList(GameObject tank)
         {
-            int id = tank.GetComponent<RealtimeView>().ownerID;
+            int id = 0;
+            RealtimeView view = tank.GetComponent<RealtimeView>();
+            if (view != null)
+                id = view.ownerID;
 
             HiFi_Utilities.DebugText("Removing Tank ID " + id);
             playerTanks[id] = null;
@@ -213,7 +225,12 @@ namespace HiFi
         /// <param name="parentToPlayer"></param>
         private void PlayerObjectHandler(GameObject obj, bool parentToPlayer)
         {
-            int id = obj.GetComponent<RealtimeView>().ownerID;
+            int id = 0;
+            RealtimeView view = obj.GetComponent<RealtimeView>();
+
+            if (view != null)
+                id = view.ownerID;
+
             HiFi_Utilities.DebugText("PlayerObject has spawned with ID " + id);
 
             obj.name = "Player_" + id + "_" + obj.name;

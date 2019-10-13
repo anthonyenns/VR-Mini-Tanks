@@ -43,9 +43,12 @@ namespace HiFi
             realtimeView = GetComponent<RealtimeView>();
             _tankSync = GetComponent<TankSync>();
 
-            /// Set ownedLocally to true if offline
+            /// Set up offline mode
             if (realtimeView == null)
+            {
                 ownedLocally = true;
+                camObject.SetActive(true);
+            }
 
             /// Set camera position
             if (XRSettings.enabled)
@@ -110,7 +113,7 @@ namespace HiFi
         {
             speedInput = Vector2.zero;
 
-            /// XR ccontroller input
+            /// XR controller input
             if (XRSettings.enabled)
             {
                 if (!HiFi_Platform.instance.Preset(gunAxisToggle))
@@ -149,9 +152,9 @@ namespace HiFi
             if (Input.GetKey(KeyCode.C))
                 speedInput += new Vector2(-1.0f, -0.5f);
 
-            if (Input.GetKey(KeyCode.UpArrow))
-                angleInput += 5.0f * Time.deltaTime;
             if (Input.GetKey(KeyCode.DownArrow))
+                angleInput += 5.0f * Time.deltaTime;
+            if (Input.GetKey(KeyCode.UpArrow))
                 angleInput -= 5.0f * Time.deltaTime;
 
             /// Clamp Gun Angle
