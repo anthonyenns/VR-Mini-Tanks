@@ -8,6 +8,7 @@ namespace HiFi
 {
     public class TankProjectileSpawner : MonoBehaviour
     {
+        public TankController controller;
         public HiFi_PresetButtonInput fire;
         public string loadedAmmo;
         public GameObject gunBarrel;
@@ -16,10 +17,20 @@ namespace HiFi
 
         private Rigidbody rb;
         private GameObject projectile;
+        private bool ownedLocally;
 
         void Update()
         {
-            if(HiFi_Platform.instance.Preset(fire) || Input.GetKeyDown(KeyCode.M))
+            /// Do we own this tank? ================================================
+            if (controller.realtimeView != null)
+            {              
+                ownedLocally = controller.realtimeView.isOwnedLocally;
+                if (!ownedLocally)
+                    return;
+            }
+            /// =====================================================================
+            
+            if (HiFi_Platform.instance.Preset(fire) || Input.GetKeyDown(KeyCode.M))
             {
                 /// Networked spawn
                 if (GameControl.instance.realtimeEnabled)

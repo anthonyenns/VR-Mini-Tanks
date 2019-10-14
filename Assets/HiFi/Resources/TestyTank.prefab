@@ -466,6 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67f7dfd68df46f458eeca9cf21f1f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 114943434514686546}
   fire:
     method: 1
     hand: 3
@@ -1094,10 +1095,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 100062, guid: e0a77823486f3ad489ac0f3d47b87172, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 100048, guid: e0a77823486f3ad489ac0f3d47b87172, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -1143,6 +1140,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 100038, guid: e0a77823486f3ad489ac0f3d47b87172, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 100062, guid: e0a77823486f3ad489ac0f3d47b87172, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
