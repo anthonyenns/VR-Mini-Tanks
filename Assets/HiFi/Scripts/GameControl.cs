@@ -21,15 +21,20 @@ namespace HiFi
         [SerializeField] GameObject offlineSetup;
         private Realtime realtime;
 
-        [Header("References")]
+        [Header("Game References")]
         [SerializeField] GameObject localTank;
         [SerializeField] List<GameObject> playerTanks = new List<GameObject>();
+        public List<GameObject> myActiveProjectiles = new List<GameObject>();
+
+        [Header("Utility Lists")]
         [SerializeField] List<PlayerObject> waitingForParent = new List<PlayerObject>();
         [SerializeField] List<GameObject> tanksWaitingList = new List<GameObject>();
 
         [Header("Settings")]
         public HiFi_PresetButtonInput recenterButton;
 
+        public int PlayerID { get { return playerID; } }
+        public Realtime RealtimeInstance { get { return realtime; } }
 
         private void OnEnable()
         {
@@ -88,6 +93,7 @@ namespace HiFi
             TankSpawnEvent.TankDespawned += RemoveTankFromList;
             PlayerObjectSpawnEvent.ObjectSpawned += PlayerObjectHandler;
             PlayerObjectSpawnEvent.ObjectDespawned += RemovePlayerObject;
+            Projectile.ProjectileHit += ProjectileHitHandler;
         }
 
         private void OnDisable()
@@ -104,6 +110,7 @@ namespace HiFi
             TankSpawnEvent.TankDespawned -= RemoveTankFromList;
             PlayerObjectSpawnEvent.ObjectSpawned -= PlayerObjectHandler;
             PlayerObjectSpawnEvent.ObjectDespawned -= RemovePlayerObject;
+            Projectile.ProjectileHit -= ProjectileHitHandler;
         }
 
         void Update()
@@ -151,6 +158,42 @@ namespace HiFi
             }
         }
 
+        #region Public Methods
+        /// <summary>
+        /// Set local tank reference.
+        /// </summary>
+        /// <param name="tank"></param>
+        public void AddLocalTank(GameObject tank, int id)
+        {
+            HiFi_Utilities.DebugText("Adding Local Tank reference at ID " + id);
+            tank.name = "Player_" + id + "_Tank";
+            localTank = tank;
+            playerTanks[id] = tank;
+        }
+
+        /// <summary>
+        /// Returns Player ID if a matching tank gameObject is found in list
+        /// </summary>
+        /// <param name="tank"></param>
+        /// <returns></returns>
+        public int IdentifyPlayer(GameObject tank)
+        {
+            int id = -1;
+
+            if (tank != null)
+            {
+                for (int i = 0; i < playerTanks.Count; i++)
+                {
+                    if (playerTanks[i] = tank)
+                        id = i;
+                }
+            }
+            return id;
+        }
+
+        #endregion
+
+        #region Private Methods
         /// <summary>
         /// Adds spawned tank to GameControl list of tanks and renames.
         /// </summary>
@@ -185,18 +228,6 @@ namespace HiFi
                 /// Offline default player 0
                 AddLocalTank(tank, 0);
             }
-        }
-
-        /// <summary>
-        /// Set local tank reference.
-        /// </summary>
-        /// <param name="tank"></param>
-        public void AddLocalTank(GameObject tank, int id)
-        {
-            HiFi_Utilities.DebugText("Adding Local Tank reference at ID " + id);
-            tank.name = "Player_" + id + "_Tank";
-            localTank = tank;
-            playerTanks[id] = tank;
         }
 
         /// <summary>
@@ -251,6 +282,29 @@ namespace HiFi
                 {
                     SetParent(playerTanks[id], obj);
                 }
+            }
+        }
+
+        private void ProjectileHitHandler(GameObject projectile, GameObject hitObj, int projectileID)
+        {
+            /// See who/what we hit
+            if (hitObj.CompareTag("Player"))
+            {
+                /// Identify the player hit
+                int hitID = IdentifyPlayer(hitObj.GetComponentInParent<TankController>().gameObject);
+
+                /// Messages
+                if (hitID == PlayerID)
+                    HiFi_Utilities.DebugText("You've been hit! By Player " + projectileID);
+                else
+                    HiFi_Utilities.DebugText("Player " + hitID + " has been hit! By Player " + projectileID);
+            }
+
+            /// If this is our projectile remove it from active list
+            for (int i = 0; i < myActiveProjectiles.Count; i++)
+            {
+                if (projectile == myActiveProjectiles[i])
+                    myActiveProjectiles.RemoveAt(i);
             }
         }
 
@@ -316,5 +370,7 @@ namespace HiFi
         {
             Application.Quit();
         }
+
+        #endregion
     }
 }

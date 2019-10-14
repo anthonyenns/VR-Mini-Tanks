@@ -82,10 +82,11 @@
     <Compile Include="Assets\HiFi\Scripts\OfflineSpawner.cs" />
     <Compile Include="Assets\HiFi\Scripts\PlayerObjects\PlayerObjectSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\Projectile.cs" />
-    <Compile Include="Assets\HiFi\Scripts\RealtimeSpawner.cs" />
+    <Compile Include="Assets\HiFi\Scripts\RealtimeTankSpawner.cs" />
+    <Compile Include="Assets\HiFi\Scripts\SpawnPoint.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\IntegrationMethods.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankController.cs" />
-    <Compile Include="Assets\HiFi\Scripts\Tank\TankGunControl.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Tank\TankGunMover.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankMover.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankProjectileSpawner.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSpawnEvent.cs" />

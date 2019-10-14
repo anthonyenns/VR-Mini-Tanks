@@ -124,6 +124,7 @@ namespace HiFi
                 else
                 {
                     angleInput += HiFi_Platform.instance.Preset(rightSpeedController) * 5.0f * Time.deltaTime;
+                    angleInput += HiFi_Platform.instance.Preset(leftSpeedController) * 5.0f * Time.deltaTime;
                 }
             }
 

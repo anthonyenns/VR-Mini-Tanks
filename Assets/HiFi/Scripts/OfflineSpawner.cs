@@ -5,46 +5,32 @@ namespace HiFi
 {
     public class OfflineSpawner : MonoBehaviour
     {
-        public GameObject obj;
-        public bool randomPosition;
-        public Vector2 randomRadiusHeight;
-        public bool randomRotation;
+        public GameObject resourcesPrefab;
         public bool vROnly;
+        public SpawnPoint[] spawnPoints;
 
-        private Vector3 spawnPos;
+        private Pose spawnPose;
         private Quaternion spawnRot;
 
         private void Awake()
         {
+            /// Disable if VR only
             if (vROnly && !XRSettings.enabled)
-                obj = null;
+                resourcesPrefab = null;
 
-            /// Position
-            if (randomPosition)
+            /// Choose spawn point
+            if (spawnPoints.Length > 0)
             {
-                Vector2 rand = Random.insideUnitCircle * randomRadiusHeight.x;
-                spawnPos = new Vector3(rand.x, randomRadiusHeight.y, rand.y);
+                int point = Random.Range(0, spawnPoints.Length - 1);
+                spawnPose = spawnPoints[point].GetPose();
             }
-            else
-                spawnPos = Vector3.up;
-
-            /// Rotation
-            if (randomRotation)
-            {
-                spawnRot = Quaternion.Euler(0, Random.rotation.eulerAngles.y, 0);
-            }
-            else
-                spawnRot = Quaternion.identity;
-
-            /// Add Terrain Height
-            spawnPos.y += Terrain.activeTerrain.SampleHeight(spawnPos);
         }
 
         private void Start()
         {
-            if (obj != null)
+            if (resourcesPrefab != null)
             {
-                Instantiate(obj, spawnPos, spawnRot);
+                Instantiate(resourcesPrefab, spawnPose.position, spawnPose.rotation);
             }
         }
     }
