@@ -62,6 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EasySuspension\Assets\EasySuspension.cs" />
+    <Compile Include="Assets\EasySuspension\Assets\RearWheelDrive.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_ControllerOffsets.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_InputProcessor.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_NodeBinding.cs" />
@@ -134,6 +136,7 @@
     <None Include="Assets\Normal\Examples\Blank Scene Template\Floor\Floor.shader" />
     <None Include="Assets\Normal\Realtime\Native\Plugins\Legal Notices.txt" />
     <None Include="Assets\Normal\Examples\Blank Scene Template\Skybox\GradientSkybox.shader" />
+    <None Include="Assets\EasySuspension\ProjectSettings\ProjectVersion.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity-Projects/VR Mini Tanks/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
