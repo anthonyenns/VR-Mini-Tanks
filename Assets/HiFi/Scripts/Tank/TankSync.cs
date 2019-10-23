@@ -26,23 +26,23 @@ public class TankSync : RealtimeComponent
 
     private void Update()
     {
-        tankController.leftSpeed = _model.trackLeftSpeed;
-        tankController.rightSpeed = _model.trackRightSpeed;
-        tankController.gunAngle = _model.gunAngle;
+        tankController.leftSpeedNetworkReturn = _model.trackLeftSpeed;
+        tankController.rightSpeedNetworkReturn = _model.trackRightSpeed;
+        tankController.gunAngleNetworkReturn = _model.gunAngle;
     }
 
 
     /// ==== PUBLIC =====
 
-    public void SetSpeeds(Vector2 speed)
+    public void SetSpeeds(Vector2 speedInput)
     {
-        _model.trackLeftSpeed = speed.x;
-        _model.trackRightSpeed = speed.y;
+        _model.trackLeftSpeed = speedInput.x;
+        _model.trackRightSpeed = speedInput.y;
     }
 
-    public void SetGunAngle(float angle)
+    public void SetGunAngle(float angleInput)
     {
-        _model.gunAngle = angle;
+        _model.gunAngle = angleInput;
     }
 }
 

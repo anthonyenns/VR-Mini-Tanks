@@ -13,14 +13,11 @@ namespace HiFi
         {
             if(controller == null)
             controller = GetComponentInParent<TankController>();
-
-            if (gunHinge == null)
-                gunHinge = transform;
         }
 
         void Update()
         {
-            gunHinge.localEulerAngles = new Vector3(controller.gunAngle, gunHinge.localEulerAngles.y, gunHinge.localEulerAngles.z);
+            gunHinge.localEulerAngles = new Vector3(gunHinge.localEulerAngles.x, controller.gunAngleNetworkReturn, gunHinge.localEulerAngles.z);
         }
     }
 }

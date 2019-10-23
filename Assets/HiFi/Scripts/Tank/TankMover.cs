@@ -19,6 +19,8 @@ namespace HiFi
         private void Awake()
         {
             rb = GetComponentInChildren<Rigidbody>();
+            if(rb == null)
+                rb = GetComponentInParent<Rigidbody>();
             controller = GetComponent<TankController>();
         }
 
@@ -32,8 +34,6 @@ namespace HiFi
         {
             if (rb != null && controller.ownedLocally)
             {
-                //Tests();
-
                 Turn();
                 Move();
             }
@@ -42,8 +42,8 @@ namespace HiFi
         private void Turn()
         {
             /// Basic Turn Values
-            leftTurn = (controller.leftSpeed * turnSpeed * Time.deltaTime);
-            rightTurn = (controller.rightSpeed * turnSpeed * Time.deltaTime);
+            leftTurn = (controller.leftSpeedNetworkReturn * turnSpeed * Time.deltaTime);
+            rightTurn = (controller.rightSpeedNetworkReturn * turnSpeed * Time.deltaTime);
 
             /// Apply Turn
             turnSum = leftTurn - rightTurn;
@@ -55,28 +55,17 @@ namespace HiFi
         {
             sumThrottle = 0;
 
-            sumThrottle = (controller.leftSpeed + controller.rightSpeed) * 0.5f;
+            sumThrottle = (controller.leftSpeedNetworkReturn + controller.rightSpeedNetworkReturn) * 0.5f;
 
             /// Apply Movement
             movement = rb.transform.forward * sumThrottle * forwardSpeed * Time.deltaTime;
             rb.MovePosition(rb.position + movement);
         }
 
-        private void Tests()
+        public void Kickback(float strength)
         {
-            sameDirection = false;
-            leftDominant = false;
-            rightDominant = false;
-
-            /// Both Tracks Same Direction ?
-            if ((controller.leftSpeed > 0 && controller.rightSpeed > 0) || (controller.leftSpeed < 0 && controller.rightSpeed < 0))
-                sameDirection = true;
-
-            /// Left or Right Dominant ?
-            if (Mathf.Abs(controller.leftSpeed) > Mathf.Abs(controller.rightSpeed))
-                leftDominant = true;
-            if (Mathf.Abs(controller.leftSpeed) < Mathf.Abs(controller.rightSpeed))
-                rightDominant = true;
+            Quaternion turnRotation = Quaternion.Euler(-strength, 0f, 0f);
+            rb.MoveRotation(rb.rotation * turnRotation);
         }
     }
 }

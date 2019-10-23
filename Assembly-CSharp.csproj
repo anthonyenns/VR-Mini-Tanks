@@ -62,8 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EasySuspension\Assets\EasySuspension.cs" />
-    <Compile Include="Assets\EasySuspension\Assets\RearWheelDrive.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_ControllerOffsets.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_InputProcessor.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Core\HiFi_NodeBinding.cs" />
@@ -79,6 +77,7 @@
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Extensions.cs" />
     <Compile Include="Assets\HiFi\Scripts\_Platform\Scripts\Utility\HiFi_Utilities.cs" />
     <Compile Include="Assets\HiFi\Scripts\Data Type\PlayerObject.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Data Type\WheelData.cs" />
     <Compile Include="Assets\HiFi\Scripts\DisableOnPlay.cs" />
     <Compile Include="Assets\HiFi\Scripts\GameControl.cs" />
     <Compile Include="Assets\HiFi\Scripts\OfflineSpawner.cs" />
@@ -94,10 +93,9 @@
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSpawnEvent.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSync.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankSyncModel.cs" />
+    <Compile Include="Assets\HiFi\Scripts\Tank\TankWheelDynamics.cs" />
     <Compile Include="Assets\HiFi\Scripts\Tank\TankWheelsMover.cs" />
     <Compile Include="Assets\HiFi\Scripts\TransformFollower.cs" />
-    <Compile Include="Assets\MC-1 USSR Toon Tank Big\Scripts\CameraOrbit.cs" />
-    <Compile Include="Assets\MC-1 USSR Toon Tank Big\Scripts\SimpleControl.cs" />
     <Compile Include="Assets\Normal\Examples\Blank Scene Template\Scripts\OculusSetFloorTrackingOriginWithoutPlugin.cs" />
     <Compile Include="Assets\Normal\Examples\Cube Player\Scripts\CubePlayer.cs" />
     <Compile Include="Assets\Normal\Examples\Cube Player\Scripts\CubePlayerManager.cs" />
@@ -133,10 +131,10 @@
     <Compile Include="Assets\Normal\Realtime\View\RealtimeViewComponentsModel.cs" />
     <Compile Include="Assets\Normal\Realtime\View\RealtimeViewConfiguration.cs" />
     <Compile Include="Assets\Normal\Realtime\View\RealtimeViewModel.cs" />
+    <None Include="Assets\T-70_Real\Readme.txt" />
     <None Include="Assets\Normal\Examples\Blank Scene Template\Floor\Floor.shader" />
     <None Include="Assets\Normal\Realtime\Native\Plugins\Legal Notices.txt" />
     <None Include="Assets\Normal\Examples\Blank Scene Template\Skybox\GradientSkybox.shader" />
-    <None Include="Assets\EasySuspension\ProjectSettings\ProjectVersion.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity-Projects/VR Mini Tanks/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

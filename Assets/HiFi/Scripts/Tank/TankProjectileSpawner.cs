@@ -9,11 +9,13 @@ namespace HiFi
     public class TankProjectileSpawner : MonoBehaviour
     {
         public TankController controller;
+        public TankMover tankMover;
         public HiFi_PresetButtonInput fire;
         public string loadedAmmo;
         public GameObject gunBarrel;
         public GameObject firePoint;
         public float force = 10;
+        public float kickBackStrength;
 
         private Rigidbody rb;
         private GameObject projectile;
@@ -52,7 +54,8 @@ namespace HiFi
 
                 GameControl.instance.myActiveProjectiles.Add(projectile);
                 rb = projectile.GetComponent<Rigidbody>();
-                rb.AddForce(gunBarrel.transform.up * force, ForceMode.Impulse);
+                rb.AddForce(-gunBarrel.transform.right * force, ForceMode.Impulse);
+                tankMover.Kickback(kickBackStrength);
             }
         }   
     }

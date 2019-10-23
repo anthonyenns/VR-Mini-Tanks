@@ -30,7 +30,8 @@ namespace HiFi
                 spawnPose.rotation = Quaternion.identity;
 
             /// Add Terrain Height
-            spawnPose.position.y += Terrain.activeTerrain.SampleHeight(spawnPose.position);
+            if (Terrain.activeTerrain != null)
+                spawnPose.position.y += Terrain.activeTerrain.SampleHeight(spawnPose.position);
 
             return spawnPose;
         }

@@ -184,7 +184,7 @@ namespace HiFi
             {
                 for (int i = 0; i < playerTanks.Count; i++)
                 {
-                    if (playerTanks[i] = tank)
+                    if (playerTanks[i] == tank)
                         id = i;
                 }
             }

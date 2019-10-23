@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: 98dfc698664a490469d3bf44f5309239
+timeCreated: 1521023090
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Base
+    100002: GunBase
+    100004: GunShaft
+    100006: LeftSuspension1
+    100008: LeftSuspension2
+    100010: LeftSuspension3
+    100012: LeftSuspension4
+    100014: LeftSuspension5
+    100016: LeftTrack1
+    100018: LeftTrack2
+    100020: LeftTrack3
+    100022: LeftTrack4
+    100024: LeftTrack5
+    100026: LeftWheel1
+    100028: LeftWheel10
+    100030: LeftWheel2
+    100032: LeftWheel3
+    100034: LeftWheel4
+    100036: LeftWheel5
+    100038: LeftWheel6
+    100040: LeftWheel7
+    100042: LeftWheel8
+    100044: LeftWheel9
+    100046: RightSuspension1
+    100048: RightSuspension2
+    100050: RightSuspension3
+    100052: RightSuspension4
+    100054: RightSuspension5
+    100056: RightTrack1
+    100058: RightTrack2
+    100060: RightTrack3
+    100062: RightTrack4
+    100064: RightTrack5
+    100066: RightWheel1
+    100068: RightWheel10
+    100070: RightWheel2
+    100072: RightWheel3
+    100074: RightWheel4
+    100076: RightWheel5
+    100078: RightWheel6
+    100080: RightWheel7
+    100082: RightWheel8
+    100084: RightWheel9
+    100086: T-70_Armature
+    100088: //RootNode
+    100090: t-70_base
+    100092: Tower
+    400000: Base
+    400002: GunBase
+    400004: GunShaft
+    400006: LeftSuspension1
+    400008: LeftSuspension2
+    400010: LeftSuspension3
+    400012: LeftSuspension4
+    400014: LeftSuspension5
+    400016: LeftTrack1
+    400018: LeftTrack2
+    400020: LeftTrack3
+    400022: LeftTrack4
+    400024: LeftTrack5
+    400026: LeftWheel1
+    400028: LeftWheel10
+    400030: LeftWheel2
+    400032: LeftWheel3
+    400034: LeftWheel4
+    400036: LeftWheel5
+    400038: LeftWheel6
+    400040: LeftWheel7
+    400042: LeftWheel8
+    400044: LeftWheel9
+    400046: RightSuspension1
+    400048: RightSuspension2
+    400050: RightSuspension3
+    400052: RightSuspension4
+    400054: RightSuspension5
+    400056: RightTrack1
+    400058: RightTrack2
+    400060: RightTrack3
+    400062: RightTrack4
+    400064: RightTrack5
+    400066: RightWheel1
+    400068: RightWheel10
+    400070: RightWheel2
+    400072: RightWheel3
+    400074: RightWheel4
+    400076: RightWheel5
+    400078: RightWheel6
+    400080: RightWheel7
+    400082: RightWheel8
+    400084: RightWheel9
+    400086: T-70_Armature
+    400088: //RootNode
+    400090: t-70_base
+    400092: Tower
+    4300000: t-70_base
+    9500000: //RootNode
+    13700000: t-70_base
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

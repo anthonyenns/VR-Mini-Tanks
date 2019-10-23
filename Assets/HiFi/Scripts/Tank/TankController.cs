@@ -26,15 +26,15 @@ namespace HiFi
         public HiFi_PresetButtonInput gunAxisToggle;
 
         [Header("Values returned from Model")]
-        public float leftSpeed; /// Value is returned from TankSync
-        public float rightSpeed; /// Value is returned from TankSync
-        public float gunAngle; /// Value is returned from TankSync
+        public float leftSpeedNetworkReturn; /// Value is returned from TankSync
+        public float rightSpeedNetworkReturn; /// Value is returned from TankSync
+        public float gunAngleNetworkReturn; /// Value is returned from TankSync
         public bool ownedLocally { get; private set; }
 
         private TankSync _tankSync;
         public RealtimeView realtimeView { get; private set; }
-        private Vector2 speedInput;
-        private float angleInput;
+        private Vector2 localSpeedInput;
+        private float localAngleInput;
         private Quaternion camOffset;
         private UserPresenceState userPresenceCache;
 
@@ -64,7 +64,7 @@ namespace HiFi
         }
 
         private void Update()
-        { 
+        {
             /// Do we own this tank? ================================================
             if (realtimeView != null)
             {
@@ -75,20 +75,20 @@ namespace HiFi
             }
             /// =====================================================================
 
-            /// Get user input
+            /// Get local input
             GetUserInput();
 
             /// Send values to tank model, or set directly if offline
             if (realtimeView != null)
             {
-                _tankSync.SetSpeeds(speedInput);
-                _tankSync.SetGunAngle(angleInput);
+                _tankSync.SetSpeeds(localSpeedInput);
+                _tankSync.SetGunAngle(localAngleInput);
             }
             else
             {
-                leftSpeed = speedInput.x;
-                rightSpeed = speedInput.y;
-                gunAngle = angleInput;
+                leftSpeedNetworkReturn = localSpeedInput.x;
+                rightSpeedNetworkReturn = localSpeedInput.y;
+                gunAngleNetworkReturn = localAngleInput;
             }
 
             /// Recenter HMD if now present but wasn't before
@@ -111,55 +111,55 @@ namespace HiFi
         /// Temporary input methods
         private void GetUserInput()
         {
-            speedInput = Vector2.zero;
+            localSpeedInput = Vector2.zero;
 
             /// XR controller input
             if (XRSettings.enabled)
             {
                 if (!HiFi_Platform.instance.Preset(gunAxisToggle))
                 {
-                    speedInput.x = HiFi_Platform.instance.Preset(leftSpeedController);
-                    speedInput.y = HiFi_Platform.instance.Preset(rightSpeedController);
+                    localSpeedInput.x = HiFi_Platform.instance.Preset(leftSpeedController);
+                    localSpeedInput.y = HiFi_Platform.instance.Preset(rightSpeedController);
                 }
                 else
                 {
-                    angleInput += HiFi_Platform.instance.Preset(rightSpeedController) * 5.0f * Time.deltaTime;
-                    angleInput += HiFi_Platform.instance.Preset(leftSpeedController) * 5.0f * Time.deltaTime;
+                    localAngleInput += HiFi_Platform.instance.Preset(rightSpeedController) * 5.0f * Time.deltaTime;
+                    localAngleInput += HiFi_Platform.instance.Preset(leftSpeedController) * 5.0f * Time.deltaTime;
                 }
             }
 
             /// Keyboard Input
             if (Input.GetKey(KeyCode.W))
-                speedInput = new Vector2(1.0f, 1.0f);
+                localSpeedInput = new Vector2(1.0f, 1.0f);
 
             if (Input.GetKey(KeyCode.X))
-                speedInput = new Vector2(-1.0f, -1.0f);
+                localSpeedInput = new Vector2(-1.0f, -1.0f);
 
             if (Input.GetKey(KeyCode.D))
-                speedInput = new Vector2(1.0f, -1.0f);
+                localSpeedInput = new Vector2(1.0f, -1.0f);
 
             if (Input.GetKey(KeyCode.A))
-                speedInput = new Vector2(-1.0f, 1.0f);
+                localSpeedInput = new Vector2(-1.0f, 1.0f);
 
             if (Input.GetKey(KeyCode.Q))
-                speedInput += new Vector2(0.5f, 1.0f);
+                localSpeedInput += new Vector2(0.5f, 1.0f);
 
             if (Input.GetKey(KeyCode.E))
-                speedInput += new Vector2(1.0f, 0.5f);
+                localSpeedInput += new Vector2(1.0f, 0.5f);
 
             if (Input.GetKey(KeyCode.Z))
-                speedInput += new Vector2(-0.5f, -1.0f);
+                localSpeedInput += new Vector2(-0.5f, -1.0f);
 
             if (Input.GetKey(KeyCode.C))
-                speedInput += new Vector2(-1.0f, -0.5f);
+                localSpeedInput += new Vector2(-1.0f, -0.5f);
 
             if (Input.GetKey(KeyCode.DownArrow))
-                angleInput += 5.0f * Time.deltaTime;
+                localAngleInput += 5.0f * Time.deltaTime;
             if (Input.GetKey(KeyCode.UpArrow))
-                angleInput -= 5.0f * Time.deltaTime;
+                localAngleInput -= 5.0f * Time.deltaTime;
 
             /// Clamp Gun Angle
-            angleInput = Mathf.Clamp(angleInput, gunAngleClamp.x, gunAngleClamp.y);
+            localAngleInput = Mathf.Clamp(localAngleInput, gunAngleClamp.x, gunAngleClamp.y);
         }
     }
 }

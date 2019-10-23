@@ -10,23 +10,26 @@ namespace HiFi
 
         public GameObject[] LeftWheels;
         public GameObject[] RightWheels;
+        
+        public Material tracksMat;
+        //public Material RightTrack;
 
-        public GameObject LeftTrack;
-        public GameObject RightTrack;
-
-        float leftTrackSpeed, rightTrackSpeed;
         public float trackMult = 0.5f;
         public float wheelsMult = 5.0f;
-        private float avg;
+        private float leftTrackSpeed, rightTrackSpeed;
+        private Rigidbody rb;
 
         private void Awake()
         {
             controller = GetComponent<TankController>();
+            rb = GetComponentInChildren<Rigidbody>();
+            if (rb == null)
+                rb = GetComponentInParent<Rigidbody>();
         }
 
         void Update()
         {
-            if ((controller.leftSpeed != 0 || controller.rightSpeed != 0) && controller.ownedLocally)
+            if ((controller.leftSpeedNetworkReturn != 0 || controller.rightSpeedNetworkReturn != 0) && controller.ownedLocally)
             {
                 MoveWheels();
             }
@@ -34,8 +37,8 @@ namespace HiFi
 
         private void MoveWheels()
         {
-            leftTrackSpeed = controller.leftSpeed + (controller.rightSpeed * 0.5f);
-            rightTrackSpeed = controller.rightSpeed + (controller.leftSpeed * 0.5f);
+            leftTrackSpeed = controller.leftSpeedNetworkReturn + (controller.rightSpeedNetworkReturn * 0.5f);
+            rightTrackSpeed = controller.rightSpeedNetworkReturn + (controller.leftSpeedNetworkReturn * 0.5f);
 
             /// Left wheels rotate
             foreach (GameObject wheelL in LeftWheels)
@@ -46,8 +49,13 @@ namespace HiFi
                 wheelR.transform.Rotate(new Vector3(-rightTrackSpeed, 0f, 0f) * wheelsMult);
 
             /// Tracks texture offsets
-            LeftTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * leftTrackSpeed * trackMult);
-            RightTrack.transform.GetComponent<Renderer>().material.mainTextureOffset += new Vector2(0f, Time.deltaTime * rightTrackSpeed * trackMult);
+            if (controller.leftSpeedNetworkReturn + controller.rightSpeedNetworkReturn < 0)
+                tracksMat.mainTextureOffset += new Vector2(Time.deltaTime * trackMult, 0f);
+
+            if (controller.leftSpeedNetworkReturn + controller.rightSpeedNetworkReturn > 0)
+                tracksMat.mainTextureOffset -= new Vector2(Time.deltaTime * trackMult, 0f);
+
+            //RightTrack.mainTextureOffset += new Vector2(0f, Time.deltaTime * rightTrackSpeed * trackMult);
         }
     }
 }
