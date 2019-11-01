@@ -12,12 +12,12 @@ namespace HiFi
     /// </summary>
     public class TankController : MonoBehaviour
     {
-        public Vector3 avatarSeatPosition;
+        public Transform pivot;
+        public Transform seatPositionVR;
+        public Transform seatPosition2D;
         public bool smoothCamera;
-        public Vector3 seatPosition2D;
-        public Vector3 seatRotation2D;
         public GameObject cameraNull;
-        public GameObject camObject;
+        public Camera playerCamera;
         public Vector2 gunAngleClamp;
 
         [Header("Temp Controls")]
@@ -35,7 +35,7 @@ namespace HiFi
         public RealtimeView realtimeView { get; private set; }
         private Vector2 localSpeedInput;
         private float localAngleInput;
-        private Quaternion camOffset;
+        private Quaternion camOffset, pivotOffset;
         private UserPresenceState userPresenceCache;
 
         private void Awake()
@@ -47,20 +47,17 @@ namespace HiFi
             if (realtimeView == null)
             {
                 ownedLocally = true;
-                camObject.SetActive(true);
+                playerCamera.gameObject.SetActive(true);
             }
 
             /// Set camera position
             if (XRSettings.enabled)
-            {
-                cameraNull.transform.localPosition = avatarSeatPosition;
-                cameraNull.transform.localRotation = Quaternion.identity;
-            }
+                playerCamera.gameObject.transform.parent = seatPositionVR;
             else
-            {
-                cameraNull.transform.localPosition = seatPosition2D;
-                cameraNull.transform.localRotation = Quaternion.Euler(seatRotation2D);
-            }
+                playerCamera.gameObject.transform.parent = seatPosition2D;
+
+            playerCamera.gameObject.transform.localPosition = Vector3.zero;
+            playerCamera.gameObject.transform.localRotation = Quaternion.identity;
         }
 
         private void Update()
@@ -68,7 +65,7 @@ namespace HiFi
             /// Do we own this tank? ================================================
             if (realtimeView != null)
             {
-                camObject.SetActive(realtimeView.isOwnedLocally);
+                playerCamera.gameObject.SetActive(realtimeView.isOwnedLocally);
                 ownedLocally = realtimeView.isOwnedLocally;
                 if (!ownedLocally)
                     return;
@@ -106,6 +103,10 @@ namespace HiFi
                 camOffset.eulerAngles = new Vector3(0, cameraNull.transform.rotation.eulerAngles.y, 0);
                 cameraNull.transform.rotation = camOffset;
             }
+
+            /// Tank body pivot smoothing
+            pivotOffset.eulerAngles = new Vector3(0, pivot.transform.rotation.eulerAngles.y, 0);
+            pivot.transform.rotation = pivotOffset;
         }
 
         /// Temporary input methods
